@@ -32,7 +32,7 @@ class Solution(object):
                 for j in numsLoc[num2]:
                     if j > i:
                         return [i, j]
-                        
+
 import collections
 a = Solution()
 print(a.twoSum([2, 7, 11, 15], 9) == [0, 1])
