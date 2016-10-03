@@ -27,19 +27,24 @@ class Solution(object):
         :type x: int
         :rtype: int
         """
-        digits=[]
-        if x<0:
-            neg=True
-            x=-x
+        if x == 0:
+            return x
+        if x < 0:
+            neg = True
+            x = -x
         else:
-            neg=False
-        revx=0
-        while x>0:
-            revx=revx*10+x%10
-            x//=10
-        if len(bin(revx)[2:])>=32:
+            neg = False
+        revx = 0
+        while x > 0:
+            revx = revx * 10 + x % 10
+            x //= 10
+        if len(bin(revx)[2:]) >= 32:
             return 0
-        elif neg:
-            return -revx
         else:
-            return revx
+            return -revx if neg else revx
+
+a = Solution()
+print(a.reverse(0) == 0)
+print(a.reverse(123) == 321)
+print(a.reverse(-123) == -321)
+print(a.reverse(2 ** 32 + 2) == 0)
