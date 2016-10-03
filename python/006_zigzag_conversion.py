@@ -20,34 +20,19 @@ class Solution(object):
         :type numRows: int
         :rtype: str
         """
-        if len(s)<=1 or numRows==1:
+        if numRows == 1 or numRows > len(s):
             return s
-        elif numRows==2:
-            return "".join([s[i] for i in range(len(s)) if i%2==0]+[s[i] for i \
-                            in range(len(s)) if i%2==1])
-        lines={}
-        col=0
-        groupSize=numRows*2-2
-        for i in range(numRows):
-            lines[i]=[]
-        for i,c in enumerate(s):
-            if col%2==0:
-                lines[i%(groupSize)].append(c)
+        soln = [[] for i in range(numRows)]
+        for i in range(len(s)):
+            loc = i % (numRows * 2 - 2)
+            if loc < numRows:
+                soln[loc].append(s[i])
             else:
-                lines[numRows-2-(i%(2*numRows-2)-numRows)].append(c)
-            if i%(groupSize)==numRows-1:
-                col+=1
-            elif (i+1)%(groupSize)==0:
-                col+=1
-        return "".join(reduce(operator.add,lines.values()))
+                soln[-(loc - numRows + 2)].append(s[i])
+        return "".join(["".join(soln[i]) for i in range(numRows)])
 
-"""
-Faster and shorter solution
-    def convert(self, s, numRows):
-        if numRows == 1 or numRows >= len(s): 
-            return s
-        final = [[] for row in xrange(numRows)]
-        for i in range(len(s)): 
-            final[numRows -1 - abs(numRows - 1 - i % (2 * numRows - 2))].append(s[i])
-        return "".join(["".join(final[i]) for i in xrange(numRows)])
-"""
+a = Solution()
+print(a.convert("ABCD", 1) == "ABCD")
+print(a.convert("ABCD", 5) == "ABCD")
+print(a.convert("ABCD", 3) == "ABDC")
+print(a.convert("PAYPALISHIRING", 3) == "PAHNAPLSIIGYIR")
