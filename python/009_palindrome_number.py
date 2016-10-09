@@ -19,15 +19,22 @@ class Solution(object):
         :type x: int
         :rtype: bool
         """
-        if x<0:
+        if x < 0:
             return False
-        elif x<10:
+        elif x < 10:
             return True
-        elif x%10==0:
+        elif x % 10 == 0:
             return False
-        revx=0
-        tmpx=x
-        while tmpx>0:
-            revx=revx*10+tmpx%10
-            tmpx//=10
-        return revx==x
+        revx = 0
+        tmpx = x
+        while tmpx > 0:
+            revx = revx * 10 + tmpx % 10
+            tmpx //= 10
+        return revx == x
+
+a = Solution()
+print(a.isPalindrome(-1) == False)
+print(a.isPalindrome(1) == True)
+print(a.isPalindrome(121) == True)
+print(a.isPalindrome(1221) == True)
+print(a.isPalindrome(10021) == False)
