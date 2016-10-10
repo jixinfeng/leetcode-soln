@@ -19,33 +19,28 @@ class Solution(object):
         if len(nums) < 3:
             return []
         nums.sort()
-        soln = []
-        length = len(nums)
-        for i in range(length - 2):
+        solns = []
+        l = len(nums)
+        for i in range(0, l - 2):
             if i and nums[i] == nums[i - 1]:
                 continue
-            target = -1 * nums[i]
-            j, k= i + 1, length - 1
+            j, k= i + 1, l - 1
             while j < k:
-                if nums[j] + nums[k] == target:
-                    soln.append([nums[i], nums[j], nums[k]])
+                test = nums[i] + nums[j] + nums[k]
+                if test == 0:
+                    soln = [nums[i], nums[j], nums[k]]
+                    solns.append(soln)
                     j += 1
-                    k -= 1
-                    while nums[j] == nums[j - 1] and j < k:
+                    while j < k and nums[j] == nums[j - 1]:
                         j += 1
-                    while nums[k] == nums[k + 1] and j < k:
+                    k -= 1
+                    while j < k and nums[k] == nums[k + 1]:
                         k -= 1
-                elif nums[j] + nums[k] < target:
+                elif test > 0:
+                    k -= 1
+                else:
                     j += 1
-                    while nums[j] == nums[j - 1] and j < k:
-                        j += 1
-                elif nums[j] + nums[k] > target:
-                    k -= 1
-                    while nums[k] == nums[k + 1] and j < k:
-                        k -= 1
-        return soln
-
-
+        return solns
 
 a = Solution()
 print(a.threeSum([-1,0,1,2,-1,4]))
