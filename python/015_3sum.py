@@ -21,7 +21,7 @@ class Solution(object):
         nums.sort()
         solns = []
         l = len(nums)
-        for i in range(0, l - 3):
+        for i in range(0, l - 2):
             if i and nums[i] == nums[i - 1]:
                 continue
             j, k= i + 1, l - 1
