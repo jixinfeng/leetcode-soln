@@ -28,4 +28,6 @@ class Solution(object):
         return maxVol
 
 a = Solution()
-print(a.maxArea([1,1]))
+print(a.maxArea([1,1]) == 1)
+print(a.maxArea([1]) == 0)
+print(a.maxArea([1,4,4,1]) == 4)
