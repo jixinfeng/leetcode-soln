@@ -26,12 +26,12 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        placeHolder=ListNode(0)
-        placeHolder.next=head
-        p=q=placeHolder
+        placeHolder = ListNode(0)
+        placeHolder.next = head
+        p = q = placeHolder
         for i in range(n):
-            p=p.next
+            p = p.next
         while p.next:
-            p,q=p.next,q.next
-        q.next=q.next.next
+            p, q = p.next, q.next
+        q.next = q.next.next
         return placeHolder.next
