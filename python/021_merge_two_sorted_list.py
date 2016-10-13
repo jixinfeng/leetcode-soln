@@ -15,32 +15,24 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        if l1 is None and l2 is None:
+        if not l1 and not l2:
             return None
-        elif l1 is None:
+        elif not l1:
             return l2
-        elif l2 is None:
+        elif not l2:
             return l1
-        headSort=curSort=ListNode(None)
-        while l1 is not None and l2 is not None:
-            if l1.val<l2.val:
-                curSort.val=l1.val
-                l1=l1.next
+        h = ListNode(None)
+        p = h
+        while l1 and l2:
+            if l1.val < l2.val:
+                p.next = ListNode(l1.val)
+                l1 = l1.next
             else:
-                curSort.val=l2.val
-                l2=l2.next
-            curSort.next=ListNode(None)
-            curSort=curSort.next
-        if l1 is None:
-            while l2 is not None:
-                curSort.val=l2.val
-                l2=l2.next
-                curSort.next=ListNode(None)
-                curSort=curSort.next
-        elif l2 is None:
-            while l1 is not None:
-                curSort.val=l1.val
-                l1=l1.next
-                curSort.next=ListNode(None)
-                curSort=curSort.next
-        return headSort
+                p.next = ListNode(l2.val)
+                l2 = l2.next
+            p = p.next
+        if not l1:
+            p.next = l2
+        else:
+            p.next = l1
+        return h.next

@@ -33,4 +33,11 @@ class Solution(object):
             self.dfs(left, right - 1, s+ ')')
 
 a = Solution()
-print(a.generateParenthesis(3))
+print(a.generateParenthesis(3) == 
+      [
+            "((()))",
+            "(()())",
+            "(())()",
+            "()(())",
+            "()()()"
+      ])

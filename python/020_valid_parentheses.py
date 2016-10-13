@@ -11,18 +11,18 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        pstack=[]
-        pleft=set(['(','[','{'])
+        pstack = []
+        pleft = set(['(', '[', '{'])
         for c in s:
             if c in pleft:
                 pstack.append(c)
-            elif c==')':
-                if pstack==[] or pstack.pop()!='(':
+            elif c == ')':
+                if pstack == [] or pstack.pop() != '(':
                     return False
-            elif c==']':
-                if pstack==[] or pstack.pop()!='[':
+            elif c == ']':
+                if pstack == [] or pstack.pop() != '[':
                     return False
-            elif c=='}':
-                if pstack==[] or pstack.pop()!='{':
+            elif c == '}':
+                if pstack == [] or pstack.pop() != '{':
                     return False
-        return len(pstack)==0
+        return len(pstack) == 0
