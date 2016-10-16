@@ -27,14 +27,24 @@ class Solution(object):
         :type val: int
         :rtype: int
         """
-        if nums==[]:
+        if nums is None or nums == []:
             return 0
-        i=0
-        while True:
-            if nums[i]==val:
-                del nums[i]
-            else:
-                i+=1
-            if i>=len(nums):
-                break
-        return len(nums)
+        l = len(nums)
+        left, right = 0, l - 1
+        while right > 0 and nums[right] == val:
+            right -= 1
+        while left < right:
+            if nums[left] == val:
+                nums[left], nums[right] = nums[right], nums[left]
+                while right > 0 and nums[right] == val:
+                    right -= 1
+            left += 1
+        return left if nums[left] == val else left + 1
+
+a = Solution()
+print(a.removeElement([3], 3) == 0)
+print(a.removeElement([2], 3) == 1)
+print(a.removeElement([3, 2, 2, 3], 3) == 2)
+print(a.removeElement([3, 3, 2, 3], 3) == 1)
+print(a.removeElement([3, 2, 2, 3], 3) == 2)
+print(a.removeElement([3, 3, 3, 3], 3) == 0)
