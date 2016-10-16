@@ -18,14 +18,17 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if len(nums)<=1:
+        if len(nums) <= 1:
             return len(nums)
-        last='a'
-        i=0
-        while i<len(nums):
-            if nums[i]==last:
-                del nums[i]
-            else:
-                last=nums[i]
-                i+=1
-        return len(nums)
+        l = len(nums)
+        slow = 0
+        for fast in range(l):
+            if nums[fast] != nums[slow]:
+                slow += 1
+            nums[slow] = nums[fast]
+        return slow + 1
+
+a = Solution()
+print(a.removeDuplicates([1, 1]) == 1)
+print(a.removeDuplicates([1, 1, 2]) == 2)
+print(a.removeDuplicates([1, 1, 2, 2, 3, 3, 3, 4]) == 4)
