@@ -13,13 +13,13 @@ class Solution(object):
         """
         if haystack is None or needle is None:
             return -1
-        l1=len(needle)
-        l2=len(haystack)
-        if l1==0 or haystack==needle:
+        l1 = len(needle)
+        l2 = len(haystack)
+        if l1 == 0 or haystack == needle:
             return 0
-        elif l1>l2:
+        elif l1 > l2:
             return -1
-        for i in range(l2-l1+1):
-            if haystack[i:i+l1]==needle:
+        for i in range(l2 - l1 + 1):
+            if haystack[i:i + l1] == needle:
                 return i
         return -1
