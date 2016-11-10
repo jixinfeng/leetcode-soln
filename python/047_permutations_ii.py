@@ -1,20 +1,17 @@
 """
-Given a collection of distinct numbers, return all possible permutations.
+Given a collection of numbers that might contain duplicates, return all possible unique permutations.
 
 For example,
-[1,2,3] have the following permutations:
+[1,1,2] have the following unique permutations:
 
     [
-      [1,2,3],
-      [1,3,2],
-      [2,1,3],
-      [2,3,1],
-      [3,1,2],
-      [3,2,1]
+      [1,1,2],
+      [1,2,1],
+      [2,1,1]
     ]
 """
 class Solution(object):
-    def permute(self, nums):
+    def permuteUnique(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
@@ -29,7 +26,10 @@ class Solution(object):
             soln.append(curr)
             return
         for i, num in enumerate(nums):
+            if i > 0 and num == nums[i - 1]:
+                continue
             self.dfs(nums[:i] + nums[i + 1:], curr + [num], soln)
 
 a = Solution()
-print(a.permute([1,2,3]) == [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]])
+print(a.permuteUnique([1,1,2]) == [[1,1,2], [1,2,1], [2,1,1]])
+print(a.permuteUnique([1,1]) == [[1,1]])
