@@ -17,10 +17,24 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        before=ListNode(0)
+        before = ListNode(0)
         while head:
-            after=head.next
-            head.next=before.next
-            before.next=head
-            head=after
+            after = head.next
+            head.next = before.next
+            before.next = head
+            head = after
         return before.next
+
+"""
+Note: Recursive solution
+class Solution(object):
+    def reverseList(self, head):
+        return self.doReverse(head, None)
+    
+    def doReverse(self, head, newHead):
+        if head is None:
+            return newHead
+        next = head.next
+        head.next = newHead
+        return self.doReverse(next, head)
+"""
