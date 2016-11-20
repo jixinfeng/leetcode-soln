@@ -25,6 +25,14 @@ class Solution(object):
             head = after
         return before.next
 
+from singlyLinkedList import *
+a = Solution()
+ll1 = singlyLinkedList([1,2,3,4,5])
+ll1.head = a.reverseList(ll1.head)
+
+ll2 = singlyLinkedList([5,4,3,2,1])
+print(ll1.isEqualTo(ll2))
+
 """
 Note: Recursive solution
 class Solution(object):
