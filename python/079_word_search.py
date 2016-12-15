@@ -34,32 +34,31 @@ class Solution(object):
         for i in range(x):
             for j in range(y):
                 if board[i][j] == word[0]:
-                    if self.search(board, word[1:], i, j, set()):
+                    tempBoard = board[:]
+                    if self.search(tempBoard, word[1:], i, j):
                         return True
         return False
 
-    def search(self, board, word, i, j, checked):
-        loc = tuple([i, j])
-        if loc in checked:
-            return False
+    def search(self, board, word, i, j):
         if not word:
             return True
         x = len(board)
         y = len(board[0])
-        newChecked = checked.copy()
-        newChecked.add(loc)
+        removed = board[i][j]
+        board[i][j] = '#'
         if i - 1 >= 0 and board[i - 1][j] == word[0]:
-            if self.search(board, word[1:], i - 1, j, newChecked):
+            if self.search(board, word[1:], i - 1, j):
                 return True
         if i + 1 < x and board[i + 1][j] == word[0]:
-            if self.search(board, word[1:], i + 1, j, newChecked):
+            if self.search(board, word[1:], i + 1, j):
                 return True
         if j - 1 >= 0 and board[i][j - 1] == word[0]:
-            if self.search(board, word[1:], i, j - 1, newChecked):
+            if self.search(board, word[1:], i, j - 1):
                 return True
         if j + 1 < y and board[i][j + 1] == word[0]:
-            if self.search(board, word[1:], i, j + 1, newChecked):
+            if self.search(board, word[1:], i, j + 1):
                 return True
+        board[i][j] = removed
         return False
 
 a = Solution()
