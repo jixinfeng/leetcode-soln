@@ -31,9 +31,9 @@ class Solution(object):
         """
         if endWord not in wordList:
             return 0
-        paths = deque([[beginWord, 1]])
+        paths = collections.deque([[beginWord, 1]])
         visited = {beginWord}
-        neighbors = defaultdict(list)
+        neighbors = collections.defaultdict(list)
         for word in wordList:
             for i in range(len(word)):
                 key = word[:i] + '_' + word[i + 1:]
@@ -54,7 +54,7 @@ class Solution(object):
     def wordDist(self, w1, w2):
         return sum([w1[i] != w2[i] for i in range(len(w1))])
 
-from collections import defaultdict, deque
+import collections
 a = Solution()
 print(a.ladderLength("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]) == 5)
 print(a.ladderLength("hit", "cog", ["hot", "dot", "dog", "lot", "log"]) == 0)
