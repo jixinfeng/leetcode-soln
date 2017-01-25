@@ -57,4 +57,4 @@ assert Solution().validWordAbbreviation("word", "w2d") == True
 assert Solution().validWordAbbreviation("internationalization", "i12iz4n") == True
 assert Solution().validWordAbbreviation("apple", "a3e") == True
 assert Solution().validWordAbbreviation("apple", "a2e") == False
-print("all cases passed")
+print("408 all test cases passed")
