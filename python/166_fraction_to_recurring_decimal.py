@@ -37,6 +37,13 @@ class Solution(object):
         if numerator == 0:
             return "0"
         soln = []
+        if numerator * denominator < 0:
+            neg = True
+            soln.append('-')
+        else:
+            neg = False
+        numerator = abs(numerator)
+        denominator = abs(denominator)
         if numerator >= denominator:
             quotient, numerator = divmod(numerator, denominator)
             soln.append(str(quotient))
@@ -46,39 +53,38 @@ class Solution(object):
             soln.append('.')
             locs = {}
             loc = 0
-            quotient = 0
             while True:
                 numerator *= 10
-                while numerator < denominator:
-                    soln.append('0')
-                    numerator *= 10
-                    locs[(quotient, numerator)] = loc
-                    loc += 1
-                quotient, numerator = divmod(numerator, denominator)
-                if (quotient, numerator) in locs:
+                quotient, remainder = divmod(numerator, denominator)
+                if (quotient, remainder) in locs:
                     divided = False
                     break
-                soln.append(str(quotient))
-                locs[(quotient, numerator)] = loc
-                loc += 1
-                print(locs)
-                if numerator == 0:
+                if remainder == 0:
+                    soln.append(str(quotient))
                     divided = True
                     break
+                numerator = remainder
+                soln.append(str(quotient))
+                locs[(quotient, remainder)] = loc
+                loc += 1
         else:
             divided = True
-        print(soln)
         if not divided:
-            soln.insert(locs[(quotient, numerator)] + 2, '(')
+            if neg:
+                soln.insert(locs[(quotient, remainder)] + 3, '(')
+            else:
+                soln.insert(locs[(quotient, remainder)] + 2, '(')
             soln.append(')')
         return "".join(soln)
-
-
         
 assert Solution().fractionToDecimal(2, 1) == "2"
+assert Solution().fractionToDecimal(-50, 8) == "-6.25"
 assert Solution().fractionToDecimal(1, 2) == "0.5"
 assert Solution().fractionToDecimal(2, 3) == "0.(6)"
 assert Solution().fractionToDecimal(5, 3) == "1.(6)"
 assert Solution().fractionToDecimal(1, 7) == "0.(142857)"
-#assert Solution().fractionToDecimal(4, 333) == "0.(012)"
+assert Solution().fractionToDecimal(1, 17) == "0.(0588235294117647)"
+assert Solution().fractionToDecimal(7, 12) == "0.58(3)"
+assert Solution().fractionToDecimal(7, -12) == "-0.58(3)"
+assert Solution().fractionToDecimal(4, 333) == "0.(012)"
 print("pass")
