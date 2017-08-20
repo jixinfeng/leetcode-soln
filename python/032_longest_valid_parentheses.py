@@ -17,11 +17,11 @@ class Solution(object):
             return soln
         dp = [0 for i in range(len(s))]
         for i in range(1, len(s)):
-            if s[i] == ")" and s[i - 1] == "(":
-                dp[i] = dp[max(i - 2, 0)] + 2
-            elif s[i] == ")" and s[i - 1] == ")":
-                if s[i - dp[i - 1] - 1] == "(":
-                    dp[i] = dp[i - 1] + dp[i - dp[i - 1] - 2] + 2
+            if s[i] == ")":
+                if s[i - 1] == "(":
+                    dp[i] = dp[max(i - 2, 0)] + 2
+                elif i - dp[i - 1] > 0 and s[i - dp[i - 1] - 1] == "(":
+                    dp[i] = dp[i - 1] + dp[max(i - dp[i - 1] - 2, 0)] + 2
             soln = max(soln, dp[i])
         return soln
 
