@@ -22,7 +22,7 @@ class Solution(object):
         solnHead = ListNode(None)
         p = solnHead
         carry = 0
-        while l1 or l2:
+        while l1 or l2 or carry:
             p.next = ListNode(carry)
             if l1:
                 p.next.val += l1.val
@@ -30,9 +30,6 @@ class Solution(object):
             if l2:
                 p.next.val += l2.val
                 l2 = l2.next
-            carry = p.next.val // 10
-            p.next.val %= 10
+            carry, p.next.val = divmod(p.next.val, 10)
             p = p.next
-        if carry:
-            p.next = ListNode(carry)
         return solnHead.next
