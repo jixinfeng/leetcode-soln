@@ -9,42 +9,35 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        if s is None or s == []:
+        if s is None or s == "":
             return ""
-        l = len(s)
-        if l < 2:
+        if len(s) < 2:
             return s
-        maxLeft, maxRight = 0, 0
-        maxPalSize = 1
-        for i in range(l):
-            left, right = self.findPalindrome(s, i)
-            if right - left > maxRight - maxLeft:
-                maxLeft, maxRight = left, right
-            if i + 1 < l and s[i] == s[i + 1]:
-                left, right = self.findPalindrome(s, i, even = True)
-                if right - left > maxRight - maxLeft:
-                    maxLeft, maxRight = left, right
-        return s[maxLeft:maxRight + 1]
 
+        currLen = 0
+        currStr = ""
+        for i in range(len(s)):
+            if self.isPalindrome(s, i - currLen - 1, i):
+                currStr = s[i - currLen - 1 : i + 1]
+                currLen += 2
+            elif self.isPalindrome(s, i - currLen, i):
+                currStr = s[i - currLen : i + 1]
+                currLen += 1
+        return currStr
 
-    def findPalindrome(self, s, loc, even = False):
-        if even:
-            left, right = loc, loc + 1
-        else:
-            left, right = loc, loc
-        lCap = min(left, len(s) - right - 1)
-        for i in range(lCap):
-            if s[left] == s[right]:
-                left -= 1
-                right += 1
+    def isPalindrome(self, s, begin, end):
+        if begin < 0:
+            return False
+
+        while begin < end:
+            if s[begin] != s[end]:
+                return False
             else:
-                break
-        if left < 0 or right >= len(s) or s[left] != s[right]:
-            left += 1
-            right -= 1
-        return left, right
+                begin, end = begin + 1, end - 1
+
+        return True
 
 a = Solution()
-print(a.longestPalindrome("aba") == "aba")
-print(a.longestPalindrome("abbae") == "abba")
-print(a.longestPalindrome("abb") == "bb")
+assert a.longestPalindrome("aba") == "aba"
+assert a.longestPalindrome("abbae") == "abba"
+assert a.longestPalindrome("abb") == "bb"

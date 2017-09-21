@@ -25,10 +25,10 @@ class Solution(object):
             return l
         lastCharPos = {}
         maxStrLen = 0
-        maxStrStart = 0
+        currStrStart = 0
         for i, ch in enumerate(s):
-            if ch in lastCharPos and lastCharPos[ch] >= maxStrStart:
-                maxStrStart = lastCharPos[ch] + 1
+            if ch in lastCharPos and lastCharPos[ch] >= currStrStart:
+                currStrStart = lastCharPos[ch] + 1
             lastCharPos[ch] = i
-            maxStrLen = max(maxStrLen, i - maxStrStart + 1)
+            maxStrLen = max(maxStrLen, i - currStrStart + 1)
         return maxStrLen
