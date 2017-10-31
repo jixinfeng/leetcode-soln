@@ -13,6 +13,7 @@ class Solution(object):
         :type upper: int
         :rtype: List[str]
         """
+        nums = sorted(list(set(nums)))
         if lower > upper:
             return []
         if nums is None or nums == []:
@@ -43,3 +44,4 @@ class Solution(object):
 a = Solution()
 print(a.findMissingRanges([0, 1, 3, 50, 75], 0, 99))
 print(a.findMissingRanges([], 1, 1))
+print(a.findMissingRanges([-2147483648, -2147483648, 0, 2147483647, 2147483647], -2147483648, 2147483647))
