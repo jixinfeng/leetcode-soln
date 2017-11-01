@@ -57,24 +57,15 @@ class Solution(object):
                         indegrees[after[j]] += 1
                         outs[before[j]].add(after[j])
                     break
-        print(outs)
-        print(indegrees)
-        print(set().union(*outs.values()))
 
         q = [k for k, v in indegrees.items() if v == 0]
         soln = []
-        print(q)
         while q:
-            print("out:", outs)
-            print("indegrees:", indegrees)
-            print(q, soln)
             curr_char = q.pop()
-            print("take", curr_char)
             soln.append(curr_char)
             for next_char in outs[curr_char]:
                 indegrees[next_char] -= 1
                 if indegrees[next_char] == 0:
-                    print("found", next_char)
                     q.append(next_char)
 
         if max(indegrees.values()) > 0:
