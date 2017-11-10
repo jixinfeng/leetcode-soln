@@ -19,17 +19,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        nums.sort()
-        soln = []
-        self.dfs(nums, [], soln)
-        return soln
-
-    def dfs(self, nums, curr, soln):
-        if nums is None or nums == []:
-            soln.append(curr)
-            return
+        if len(nums) <= 1:
+            return [nums]
+        solns = []
         for i, num in enumerate(nums):
-            self.dfs(nums[:i] + nums[i + 1:], curr + [num], soln)
+            for tail in self.permute(nums[:i] + nums[i+1:]):
+                solns.append([num] + tail)
+        return solns
+
 
 a = Solution()
-print(a.permute([1,2,3]) == [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]])
+assert a.permute([1,2,3]) == [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
