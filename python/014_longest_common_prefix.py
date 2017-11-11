@@ -7,18 +7,14 @@ class Solution(object):
         :type strs: List[str]
         :rtype: str
         """
-        if strs is None or strs == "":
+        if not strs:
             return ""
-        lcp = list(strs[0])
-        for i, string in enumerate(strs):
-            if list(string[0:len(lcp)]) == lcp:
-                continue
-            else:
-                while len(lcp) > 0 and list(string[0:len(lcp)]) != lcp:
-                    lcp.pop()
-                if lcp == 0:
-                    return ""
-        return "".join(lcp)
+        shortest = min(strs, key=len)
+        for i, ch in enumerate(shortest):
+            for other in strs:
+                if other[i] != ch:
+                    return shortest[:i]
+        return shortest
 
 a = Solution()
 print(a.longestCommonPrefix(["apps","apple","append"]) == "app")
