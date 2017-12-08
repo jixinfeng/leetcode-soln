@@ -19,17 +19,17 @@ class Solution(object):
         mergeCache = []
         p = ListNode(None)
         q = p
-        for key in range(len(lists)):
-            if lists[key] is not None:
-                heapq.heappush(mergeCache, (lists[key].val, key))
-                lists[key] = lists[key].next
 
-        while len(mergeCache) > 0:
-            node = heapq.heappop(mergeCache)
-            val, key = node[0], node[1]
-            q.next = ListNode(val)
+        for i in range(len(lists)):
+            if lists[i]:
+                heapq.heappush(mergeCache, (lists[i].val, i))
+
+        while mergeCache:
+            val, head_i = heapq.heappop(mergeCache)
+            q.next = lists[head_i]
             q = q.next
-            if lists[key] is not None:
-                heapq.heappush(mergeCache, (lists[key].val, key))
-                lists[key] = lists[key].next
+            lists[head_i] = lists[head_i].next
+            if lists[head_i]:
+                heapq.heappush(mergeCache, (lists[head_i].val, head_i))
+
         return p.next
