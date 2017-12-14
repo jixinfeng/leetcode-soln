@@ -21,14 +21,14 @@ class Solution(object):
         """
         if head is None or head.next is None:
             return head
-        placeHolder=ListNode(0)
-        placeHolder.next=head
+        placeHolder = ListNode(0)
+        placeHolder.next = head
         p=placeHolder
-        
+
         while p.next and p.next.next:
-            temp=p.next.next
-            p.next.next=temp.next
-            temp.next=p.next
-            p.next=temp
-            p=p.next.next
+            q = p.next.next
+            p.next.next = q.next
+            q.next = p.next
+            p.next = q
+            p = p.next.next
         return placeHolder.next

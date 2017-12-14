@@ -29,17 +29,16 @@ class Solution(object):
         """
         if nums is None or nums == []:
             return 0
-        l = len(nums)
-        left, right = 0, l - 1
-        while right > 0 and nums[right] == val:
-            right -= 1
-        while left < right:
-            if nums[left] == val:
-                nums[left], nums[right] = nums[right], nums[left]
-                while right > 0 and nums[right] == val:
-                    right -= 1
-            left += 1
-        return left if nums[left] == val else left + 1
+        if val not in nums:
+            return len(nums)
+        slow, fast = 0, 0
+        for fast, fast_val in enumerate(nums):
+            if fast_val == val:
+                continue
+            else:
+                nums[slow] = nums[fast]
+                slow += 1
+        return slow
 
 a = Solution()
 print(a.removeElement([3], 3) == 0)
