@@ -27,5 +27,6 @@ class Solution(object):
             for j in reversed(range(l)):
                 if nums[j] > nums[i - 1]:
                     nums[i - 1], nums[j] = nums[j], nums[i - 1]
+                    nums[i:] = nums[i:][::-1]
                     break
         nums[i:] = nums[i::-1]
