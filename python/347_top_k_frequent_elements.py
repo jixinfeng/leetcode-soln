@@ -16,13 +16,19 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        count = collections.defaultdict(int)
+        if not nums or not k:
+            return []
+        if len(nums) < k:
+            return []
+        count = {}
         for num in nums:
-            count[num] += 1
-        topkCount = set(sorted(count.values(), reverse = True)[0:k])
-        print(topkCount)
+            count[num] = count.get(num, 0) + 1
+            
+        freq = []
+        heapq.heapify(freq)
+        for i, j in count.items():
+            heapq.heappush(freq, (-j, i))
         soln = []
-        for num in count.keys():
-            if count[num] in topkCount:
-                soln.append(num)
+        for i in range(k):
+            soln.append(heapq.heappop(freq)[1])
         return soln
