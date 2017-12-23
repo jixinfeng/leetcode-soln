@@ -53,3 +53,31 @@ class Solution:
                     stack.append(neighbor)
                 currnode.neighbors.append(nodes[neighbor.label])
         return soln
+
+"""
+# Recursive dfs:
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def __init__(self):
+        self.cloned = {}
+    
+    def cloneGraph(self, node):
+        if not node:
+            return None
+        else:
+            return self.dfs(node)
+            
+    def dfs(self, node):
+        if not node:
+            return None
+        new_node = UndirectedGraphNode(node.label)
+        self.cloned[node.label] = new_node
+        for neighbor in node.neighbors:
+            nb_label = neighbor.label
+            if nb_label in self.cloned:
+                new_node.neighbors.append(self.cloned[nb_label])
+            else:
+                new_node.neighbors.append(self.dfs(neighbor))
+        return new_node
+"""
