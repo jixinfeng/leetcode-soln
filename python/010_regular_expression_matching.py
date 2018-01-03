@@ -18,6 +18,8 @@ Some examples:
     isMatch("ab", ".*") → true
     isMatch("aab", "c*a*b") → true
 """
+import unittest
+
 class Solution(object):
     def isMatch(self, s, p):
         """
@@ -41,14 +43,20 @@ class Solution(object):
 
         return dp[-1][-1]
 
+class TestSolution(unittest.TestCase):
+    def test_char_only_neq(self):
+        self.assertFalse(Solution().isMatch("aa", "a"))
 
-a = Solution()
-assert a.isMatch("aa", "a") == False
-assert a.isMatch("aa", "aa") == True
-assert a.isMatch("aaa", "aa") == False
-assert a.isMatch("aa", "a*") == True
-assert a.isMatch("aa", ".*") == True
-assert a.isMatch("ab", ".*") == True
-assert a.isMatch("aab", "c*a*b") == True
-assert a.isMatch("aaa", "ab*a") == False
-assert a.isMatch("a","ab*") == True
+    def test_char_only_eq(self):
+        self.assertTrue(Solution().isMatch("aa", "aa"))
+
+    def test_dot_eq(self):
+        self.assertTrue(Solution().isMatch("ab", ".*"))
+
+    def test_star_eq(self):
+        self.assertTrue(Solution().isMatch("aab", "c*a*b"))
+
+    def test_star_neq(self):
+        self.assertFalse(Solution().isMatch("aaa", "ab*a"))
+
+unittest.main()
