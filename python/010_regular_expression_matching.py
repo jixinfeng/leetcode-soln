@@ -27,28 +27,28 @@ class Solution(object):
         """
         dp = [[False for i in range(len(p) + 1)] for j in range(len(s) + 1)]
         dp[0][0] = True
-        for i in range(1, len(p) + 1):
-            if p[i - 1] == '*':
-                dp[0][i] = dp[0][i - 2]
+        for j in range(1, len(p) + 1):
+            if p[j - 1] == '*':
+                dp[0][j] = dp[0][j - 2]
         for i in range(1, len(s) + 1):
             for j in range(1, len(p) + 1):
                 if p[j - 1] == '*':
                     dp[i][j] = dp[i][j - 2]
                     if s[i - 1] == p[j - 2] or p[j - 2] == '.':
                         dp[i][j] |= dp[i - 1][j]
-                else:
-                    if s[i - 1] == p[j - 1] or p[j - 1] == '.':
-                        dp[i][j] = dp[i - 1][j - 1]
+                elif p[j - 1] == s[i - 1] or p[j - 1] == '.':
+                    dp[i][j] = dp[i - 1][j - 1]
+
         return dp[-1][-1]
 
 
 a = Solution()
-print(a.isMatch("aa", "a") == False)
-print(a.isMatch("aa", "aa") == True)
-print(a.isMatch("aaa", "aa") == False)
-print(a.isMatch("aa", "a*") == True)
-print(a.isMatch("aa", ".*") == True)
-print(a.isMatch("ab", ".*") == True)
-print(a.isMatch("aab", "c*a*b") == True)
-print(a.isMatch("aaa", "ab*a") == False)
-print(a.isMatch("a","ab*"))
+assert a.isMatch("aa", "a") == False
+assert a.isMatch("aa", "aa") == True
+assert a.isMatch("aaa", "aa") == False
+assert a.isMatch("aa", "a*") == True
+assert a.isMatch("aa", ".*") == True
+assert a.isMatch("ab", ".*") == True
+assert a.isMatch("aab", "c*a*b") == True
+assert a.isMatch("aaa", "ab*a") == False
+assert a.isMatch("a","ab*") == True
