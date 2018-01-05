@@ -20,6 +20,7 @@ Some examples:
 """
 import unittest
 
+
 class Solution(object):
     def isMatch(self, s, p):
         """
@@ -42,6 +43,7 @@ class Solution(object):
                     dp[i][j] = dp[i - 1][j - 1]
 
         return dp[-1][-1]
+
 
 class TestSolution(unittest.TestCase):
     def test_char_only_neq(self):

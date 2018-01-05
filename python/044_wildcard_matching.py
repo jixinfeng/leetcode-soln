@@ -18,6 +18,9 @@ isMatch("aa", "a*") → true
 isMatch("ab", "?*") → true
 isMatch("aab", "c*a*b") → false
 """
+import unittest
+
+
 class Solution(object):
     def isMatch(self, s, p):
         """
@@ -56,18 +59,33 @@ class Solution(object):
             else:
                 return False
 
-a = Solution()
-assert a.isMatch("aa", "a") == False
-assert a.isMatch("aa", "aa") == True
-assert a.isMatch("aaa", "aa") == False
-assert a.isMatch("aa", "*") == True
-assert a.isMatch("aa", "a*") == True
-assert a.isMatch("ab", "?*") == True
-assert a.isMatch("aab", "c*a*b") == False
-assert a.isMatch("c", "*?*") == True
-assert a.isMatch("ho", "ho**") == True
-assert a.isMatch("babaaababaabababbbbbbaabaabbabababbaababbaaabbbaaab",
-                 "***bba**a*bbba**aab**b") == False
-assert a.isMatch("babbbbaabababaabbababaababaabbaabababbaaababbababaaaaaabbabaaaabababbabbababbbaaaababbbabbbbbbbbbbaabbb",
-                 "b**bb**a**bba*b**a*bbb**aba***babbb*aa****aabb*bbb***a") == False
+
+class TestSolution(unittest.TestCase):
+    def test_char_only_neq(self):
+        self.assertFalse(Solution().isMatch("aa", "a"))
+
+    def test_char_only_eq(self):
+        self.assertTrue(Solution().isMatch("aa", "aa"))
+
+    def test_q_mark_eq(self):
+        self.assertTrue(Solution().isMatch("ab", "a?"))
+
+    def test_q_mark_neq(self):
+        self.assertFalse(Solution().isMatch("abc", "a?"))
+
+    def test_star_eq(self):
+        self.assertTrue(Solution().isMatch("c", "*?*"))
+
+    def test_star_neq(self):
+        self.assertFalse(Solution().isMatch("aab", "c*a*b"))
+
+    def test_long_case(self):
+        self.assertFalse(Solution().isMatch("babaaababaabababbbbbbaabaabbabababbaababbaaabbbaaab",
+                                            "***bba**a*bbba**aab**b"))
+
+    def test_long_case(self):
+        self.assertFalse(Solution().isMatch("babbbbaabababaabbababaababaabbaabababbaaababbababaaaaaabbabaaaabababbabbababbbaaaababbbabbbbbbbbbbaabbb",
+                                            "b**bb**a**bba*b**a*bbb**aba***babbb*aa****aabb*bbb***a"))
+
+unittest.main()
 

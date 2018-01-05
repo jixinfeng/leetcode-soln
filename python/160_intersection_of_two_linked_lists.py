@@ -53,4 +53,4 @@ class Solution(object):
                 q=q.next
 
             # if no intersection, they will reach the end at same time
-        return pa
+        return p
