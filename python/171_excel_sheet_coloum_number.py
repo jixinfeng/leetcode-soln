@@ -23,8 +23,7 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        column=0
-        for i,char in enumerate(s[::-1]):
-            column+=(ord(char)-64)*pow(26,i)
-
+        column = 0
+        for i, char in enumerate(s[::-1]):
+            column += (ord(char) - 64) * pow(26, i)
         return column

@@ -25,8 +25,8 @@ class Solution(object):
             rentries[i]=set()
             centries[i]=set()
             bentries[i]=set()
-        for i,row in enumerate(board):
-            for j,entry in enumerate(row):
+        for i, row in enumerate(board):
+            for j, entry in enumerate(row):
                 if entry=='.':
                     continue
                 box=(i//3)*3+(j//3) #convert i,j to box id

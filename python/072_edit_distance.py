@@ -24,11 +24,11 @@ class Solution(object):
             states[i][0] = i
         for i in range(1, m):
             for j in range(1, n):
-                states[i][j] = min(states[i - 2][j] + 1,
+                states[i][j] = min(states[i - 1][j] + 1,
                                    states[i][j - 1] + 1,
                                    states[i - 1][j - 1] +
                                    (0 if word1[i - 1] == word2[j - 1] else 1))
         return states[m - 1][n - 1]
 
 a = Solution()
-print(a.minDistance("hello", "holla"))
+assert a.minDistance("hello", "holla") == 2
