@@ -18,32 +18,31 @@ For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another
 example is LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself
 according to the LCA definition/
 """
+
+
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
 
-class Solution(object):
-    def lowestCommonAncestor(self, root, p, q):
-        """
-        :type root: TreeNode
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: TreeNode
-        """
-        if root is None:
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root:
             return None
         if root == p or root == q:
             return root
-        leftCandidate = self.lowestCommonAncestor(root.left, p, q)
-        rightCandidate = self.lowestCommonAncestor(root.right, p, q)
 
-        if leftCandidate is not None and rightCandidate is not None:
+        left_candidate = self.lowestCommonAncestor(root.left, p, q)
+        right_candidate = self.lowestCommonAncestor(root.right, p, q)
+
+        if left_candidate and right_candidate:
             return root
-        elif leftCandidate is not None:
-            return leftCandidate
-        elif rightCandidate is not None:
-            return rightCandidate
-        return None
+
+        elif left_candidate:
+            return left_candidate
+        elif right_candidate:
+            return right_candidate
+        else:
+            return None

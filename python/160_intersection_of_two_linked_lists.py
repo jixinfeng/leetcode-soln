@@ -25,6 +25,8 @@ Credits:
     Special thanks to @stellari for adding this problem and creating all test
     cases.
 """
+
+
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, x):
@@ -32,25 +34,21 @@ Credits:
 #         self.next = None
 
 class Solution(object):
-    def getIntersectionNode(self, headA, headB):
-        """
-        :type head1, head1: ListNode
-        :rtype: ListNode
-        """
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         if headA is None or headB is None:
             return None
-        
-        p,q=headA,headB
-        while p!=q:
+
+        p, q = headA, headB
+        while p != q:
             if p is None:
-                p=headB
+                p = headB
             else:
-                p=p.next
+                p = p.next
 
             if q is None:
-                q=headA
+                q = headA
             else:
-                q=q.next
+                q = q.next
 
             # if no intersection, they will reach the end at same time
         return p

@@ -15,36 +15,27 @@ Credits:
     Special thanks to @Freezen for adding this problem and creating all test
     cases.
 """
-class Solution(object):
-    def rob(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if nums is None or nums == []:
+
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if not nums:
             return 0
-        l = len(nums)
-        if l == 1:
-            return nums[0]
-        if l == 2:
+        if len(nums) <= 2:
             return max(nums)
-        solns = []
-        for i in range(l):
-            dp = [0] * l
-            houses = nums[i:] + nums[:i]
-            for i in range(l):
-                if i == 0:
-                    dp[0] = houses[0]
-                elif i == 1:
-                    dp[1] = max(houses[0], houses[1])
-                elif i < l - 1:
-                    dp[i] = max(dp[i - 2] + houses[i], dp[i - 1])
-                else:
-                    dp[i] = max(dp[i - 2] + houses[i], dp[i - 1]) \
-                            if dp[0] == 0 else 0
-            solns.append(max(dp[-2],dp[-1]))
-        return max(solns)
+
+        return max(self.rob_i(nums[:-1]), self.rob_i(nums[1:]))
+
+    def rob_i(self, nums: List[int]) -> int:
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
+        dp[1] = max(nums[:2])
+        for i in range(2, len(nums)):
+            dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])
+
+        return dp[-1]
+
 
 a = Solution()
-print(a.rob([1,2,3,4,5]) == 8)
-print(a.rob([1,3,5,7,9,2,4,6,8,10]) == 30)
+print(a.rob([1, 2, 3, 4, 5]) == 8)
+print(a.rob([1, 3, 5, 7, 9, 2, 4, 6, 8, 10]) == 30)

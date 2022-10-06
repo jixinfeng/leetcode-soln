@@ -8,30 +8,18 @@ Note:
     You are guaranteed to have only one unique value in the BST that is closest
     to the target.
 """
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
-class Solution(object):
-    def closestValue(self, root, target):
-        """
-        :type root: TreeNode
-        :type target: float
-        :rtype: int
-        """
-        gap=float('inf')
-        closest=TreeNode(None)
-        while root is not None:
-            if abs(root.val-target)<gap:
-                gap=abs(root.val-target)
-                closest=root
-            if target==root.val:
-                break
-            elif target<root.val:
-                root=root.left
-            else:
-                root=root.right
-        return closest.val
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def closestValue(self, root: Optional[TreeNode], target: float) -> int:
+        values = self.inorder(root)
+        return min(values, key=lambda x: abs(x - target))
+
+    def inorder(self, node):
+        return self.inorder(node.left) + [node.val] + self.inorder(node.right) if node else []

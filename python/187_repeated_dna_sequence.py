@@ -13,21 +13,20 @@ For example,
 Return:
     ["AAAAACCCCC", "CCCCCAAAAA"].
 """
-class Solution(object):
-    def findRepeatedDnaSequences(self, s):
-        """
-        :type s: str
-        :rtype: List[str]
-        """
-        seqLen = 10
-        if s is None or len(s) < seqLen:
+
+
+class Solution:
+    def findRepeatedDnaSequences(self, s: str) -> List[str]:
+        seq_length = 10
+        if len(s) < seq_length:
             return []
-        seen = {}
-        l = len(s)
-        for i in range(l - seqLen + 1):
-            seq = s[i:i + seqLen]
-            seen[seq] = seen.get(seq, 0) + 1
-        return [seq for seq, freq in seen.items() if freq > 1]
+
+        count = {}
+        for i in range(len(s) - seq_length + 1):
+            seq = s[i: i + 10]
+            count[seq] = count.get(seq, 0) + 1
+
+        return [k for k, v in count.items() if v > 1]
 
 a = Solution()
 print(a.findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT") ==

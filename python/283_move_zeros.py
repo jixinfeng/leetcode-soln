@@ -13,19 +13,22 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and
     creating all test cases.
 """
-class Solution(object):
-    def moveZeroes(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: void Do not return anything, modify nums in-place instead.
-        """
-        count=0
-        while True:
-            try:
-                nums.remove(0)
-            except:
-                break
-            count+=1
 
-        for i in xrange(count):
-            nums.append(0)
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        reader_index, writer_index = 0, 0
+        while reader_index < len(nums):
+            if nums[reader_index] == 0:
+                reader_index += 1
+            else:
+                nums[writer_index] = nums[reader_index]
+                reader_index += 1
+                writer_index += 1
+
+        while writer_index < len(nums):
+            nums[writer_index] = 0
+            writer_index += 1

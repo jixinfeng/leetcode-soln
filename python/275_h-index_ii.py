@@ -5,8 +5,10 @@ Could you optimize your algorithm.
 Hint:
     Expected runtime complexity is in O(log n) and the input is sorted.
 """
+
+
 class Solution(object):
-    def hIndex(self, citations):
+    def hIndex(self, citations: List[int]) -> int:
         """
         :type citations: List[int]
         :rtype: int
@@ -21,12 +23,13 @@ class Solution(object):
             else:
                 left = mid + 1
         if citations[left] >= len(citations) - left:
-            return len(citations) - left 
+            return len(citations) - left
         else:
             return 0
+
 
 a = Solution()
 print(a.hIndex([0]) == 0)
 print(a.hIndex([1]) == 1)
 print(a.hIndex([0, 1]) == 1)
-print(a.hIndex([11,15]) == 2)
+print(a.hIndex([11, 15]) == 2)

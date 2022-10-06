@@ -1,5 +1,5 @@
 import pytest
-from python.src.p003_longest_substring_without_repeating_characters import Solution
+from src.p003_longest_substring_without_repeating_characters import Solution
 
 
 test_args = [

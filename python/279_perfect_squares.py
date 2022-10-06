@@ -9,26 +9,21 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and creating
     all test cases.
 """
-class Solution(object):
-    def numSquares(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        dp = collections.defaultdict(int)
-        j = 1
-        while j ** 2 <= n:
-            dp[j ** 2] = 1
-            j += 1
-        for i in range(1, n + 1):
-            j = 1
-            while i + j ** 2 <= n:
-                if i + j ** 2 not in dp or dp[i] + 1 < dp[i + j ** 2]:
-                    dp[i + j ** 2] = dp[i] + 1
-                j += 1
-        return dp[n]
 
-import collections
+
+class Solution:
+    def numSquares(self, n: int) -> int:
+        square_numbers = [i ** 2 for i in range(n) if i ** 2 <= n]
+
+        dp = [0] + [n] * n
+        for i in range(1, n + 1):
+            for sq in square_numbers:
+                if i < sq:
+                    break
+                dp[i] = min(dp[i], dp[i - sq] + 1)
+        return dp[-1]
+
+
 a = Solution()
 print(a.numSquares(12) == 3)
 print(a.numSquares(13) == 2)
@@ -51,4 +46,3 @@ https://discuss.leetcode.com/topic/49126/simple-math-solution-4ms-in-c-explained
             i += 1
         return 3
 """
-

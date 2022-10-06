@@ -3,8 +3,9 @@ class ListNode(object):
         self.val = x
         self.next = None
 
+
 class singlyLinkedList(object):
-    def __init__(self, data = None):
+    def __init__(self, data=None):
         """
         data: list()
         """
@@ -74,7 +75,7 @@ class singlyLinkedList(object):
         r = ListNode(None)
         r.next = y.head
         s = r.next
-        
+
         while q and s:
             if q.val == s.val:
                 q = q.next
@@ -90,24 +91,25 @@ class singlyLinkedList(object):
             ans.append(p.val)
             p = p.next
         return ans
-    
+
     def toString(self, sep=' '):
         return str(sep).join(list(map(str, self.toList())))
 
     def printNodes(self, sep=''):
         print(self.toString(sep))
 
+
 if __name__ == "__main__":
     print("----------")
     print("singly linked list [1,2,3,3,4,5]")
-    a = singlyLinkedList([1,2,3,3,4,5])
+    a = singlyLinkedList([1, 2, 3, 3, 4, 5])
     a.printNodes()
     print("delete a element")
     a.delete(3)
     a.printNodes()
     print("----------")
     print("singly linked list [2,4]")
-    b = singlyLinkedList([2,4])
+    b = singlyLinkedList([2, 4])
     b.printNodes()
     print("add element at head")
     b.addHead(1)

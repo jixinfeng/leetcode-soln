@@ -23,41 +23,42 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and
     all test cases.
 """
+
+
 class Stack(object):
     def __init__(self):
         """
         initialize your data structure here.
         """
-        self.queue=[]
+        self.queue = []
 
-    def push(self, x):
+    def push(self, x: int) -> None:
         """
         :type x: int
         :rtype: nothing
         """
         self.queue.append(x)
-        
-    def pop(self):
+
+    def pop(self) -> int:
         """
         :rtype: nothing
         """
-        for i in range(len(self.queue)-1):
+        for i in range(len(self.queue) - 1):
             self.queue.append(self.queue.pop(0))
         self.queue.pop(0)
-        
-    def top(self):
+
+    def top(self) -> int:
         """
         :rtype: int
         """
-        for i in range(len(self.queue)-1):
+        for i in range(len(self.queue) - 1):
             self.queue.append(self.queue.pop(0))
-        top=self.queue[0]
+        top = self.queue[0]
         self.queue.append(self.queue.pop(0))
         return top
-        
-    def empty(self):
+
+    def empty(self) -> bool:
         """
         :rtype: bool
         """
-        return self.queue==[]
-
+        return self.queue == []

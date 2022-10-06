@@ -8,34 +8,34 @@ Credits:
 Special thanks to @jianchao.li.fighter for adding this problem and creating all
 test cases.
 """
-class Solution(object):
-    def summaryRanges(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[str]
-        """
-        if nums is None or nums == []:
+
+
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        if not nums:
             return []
-        if len(nums) == 1:
-            return [str(nums[0])]
-        soln = []
-        lower, upper = nums[0], nums[0]
+
+        ranges = []
+        curr_range = []
         for i in range(len(nums) - 1):
-            if nums[i] + 1 == nums[i + 1]:
-                continue
-            else:
-                upper = nums[i]
-                if upper > lower:
-                    soln.append(str(lower) + '->' + str(upper))
-                else:
-                    soln.append(str(upper))
-                lower = nums[i + 1]
-        upper = nums[-1]
-        if upper > lower:
-            soln.append(str(lower) + '->' + str(upper))
+            if not curr_range:
+                curr_range.append(nums[i])
+
+            if nums[i + 1] - nums[i] > 1:
+                curr_range.append(nums[i])
+                ranges.append(sorted(set(curr_range)))
+                curr_range = []
+
+        if not curr_range:
+            ranges.append([nums[-1]])
         else:
-            soln.append(str(upper))
-        return soln
+            curr_range.append(nums[-1])
+            ranges.append(sorted(set(curr_range)))
+
+        solution = ['->'.join(map(str, r)) for r in ranges]
+
+        return solution
+
 
 a = Solution()
-print(a.summaryRanges([0,1,2,4,5,7,8,9]))
+print(a.summaryRanges([0, 1, 2, 4, 5, 7, 8, 9]))

@@ -26,8 +26,10 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and creating
     all test cases.
 """
+
+
 class Solution(object):
-    def hIndex(self, citations):
+    def hIndex(self, citations: List[int]) -> int:
         """
         :type citations: List[int]
         :rtype: int
@@ -36,7 +38,7 @@ class Solution(object):
             return 0
         if max(citations) == 0:
             return 0
-        citations = sorted(citations, reverse = True)
+        citations = sorted(citations, reverse=True)
         h = 0
         for i in range(len(citations)):
             if citations[i] >= i + 1:
@@ -45,5 +47,6 @@ class Solution(object):
                 break
         return h
 
+
 a = Solution()
-print(a.hIndex([3,0,6,1,5]))
+print(a.hIndex([3, 0, 6, 1, 5]))

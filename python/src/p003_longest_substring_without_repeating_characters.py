@@ -14,6 +14,8 @@ Examples:
 Hint:
     Need the length of longest string only, don't need the string
 """
+
+
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """

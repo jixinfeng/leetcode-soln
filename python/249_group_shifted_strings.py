@@ -16,14 +16,16 @@ A solution is:
       ["a","z"]
     ]
 """
+
+
 class Solution(object):
     def groupStrings(self, strings):
         """
         :type strings: List[str]
         :rtype: List[List[str]]
         """
-        shifts = collections.defaultdict(list)  
-        for s in strings:  
-            shift = tuple([(ord(c) - ord(s[0])) % 26 for c in s])  
-            shifts[shift].append(s)  
-        return map(sorted, shifts.values()) 
+        shifts = collections.defaultdict(list)
+        for s in strings:
+            shift = tuple([(ord(c) - ord(s[0])) % 26 for c in s])
+            shifts[shift].append(s)
+        return map(sorted, shifts.values())

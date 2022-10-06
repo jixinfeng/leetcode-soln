@@ -14,40 +14,38 @@ Notes:
     You may assume that all operations are valid (for example, no pop or peek
     operations will be called on an empty queue).
 """
-class Queue(object):
+
+
+class MyQueue:
+
     def __init__(self):
-        """
-        initialize your data structure here.
-        """
-        self.inStack=[]
-        self.outStack=[]
+        self.in_stack = []
+        self.out_stack = []
 
-    def push(self, x):
-        """
-        :type x: int
-        :rtype: nothing
-        """
-        self.inStack.append(x)
+    def push(self, x: int) -> None:
+        while self.out_stack:
+            self.in_stack.append(self.out_stack.pop())
 
-    def pop(self):
-        """
-        :rtype: nothing
-        """
-        self.peek()
-        self.outStack.pop()
+        self.in_stack.append(x)
 
+    def pop(self) -> int:
+        while self.in_stack:
+            self.out_stack.append(self.in_stack.pop())
 
-    def peek(self):
-        """
-        :rtype: int
-        """
-        if not self.inStack():
-            while self.inStack:
-                self.inStack.append(self.outStack.pop())
-        return self.outStack[-1]
+        return self.out_stack.pop()
 
-    def empty(self):
-        """
-        :rtype: bool
-        """
-        return len(self.inStack)+len(self.outStack)==0
+    def peek(self) -> int:
+        while self.in_stack:
+            self.out_stack.append(self.in_stack.pop())
+
+        return self.out_stack[-1]
+
+    def empty(self) -> bool:
+        return len(self.in_stack) + len(self.out_stack) == 0
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()

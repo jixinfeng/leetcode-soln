@@ -7,8 +7,10 @@ You may assume each number in the sequence is unique.
 Follow up:
 Could you do it using only constant space complexity?
 """
+
+
 class Solution(object):
-    def verifyPreorder(self, preorder):
+    def verifyPreorder(self, preorder: List[int]) -> bool:
         """
         :type preorder: List[int]
         :rtype: bool
@@ -25,8 +27,10 @@ class Solution(object):
             stack.append(i)
         return True
 
+
 from binarySearchTree import *
+
 a = Solution()
-t = BST([10,5,12,2,6])
+t = BST([10, 5, 12, 2, 6])
 print(t.toList(order=-1))
 print(a.verifyPreorder(t.toList(order=-1)) == True)

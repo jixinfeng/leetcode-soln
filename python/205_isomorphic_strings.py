@@ -17,11 +17,29 @@ Given "paper", "title", return true.
 Note:
     You may assume both s and t have the same length.
 """
-class Solution(object):
-    def isIsomorphic(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-        return len(s)==len(t) and len(set(zip(s,t)))==len(set(s))==len(set(t))
+
+
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+
+        if not (s):
+            return True
+
+        s_to_t = {}
+        t_to_s = {}
+
+        for i, chs in enumerate(s):
+            cht = t[i]
+            if chs in s_to_t and s_to_t[chs] != cht:
+                return False
+            if cht in t_to_s and t_to_s[cht] != chs:
+                return False
+
+            if chs not in s_to_t:
+                s_to_t[chs] = cht
+            if cht not in t_to_s:
+                t_to_s[cht] = chs
+
+        return True

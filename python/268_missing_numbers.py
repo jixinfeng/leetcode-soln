@@ -13,10 +13,8 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and
     creating all test cases.
 """
-class Solution(object):
-    def missingNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        return len(nums) * (len(nums) + 1) // 2 - sum(nums)
+
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        return (1 + len(nums)) * len(nums) // 2 - sum(nums)

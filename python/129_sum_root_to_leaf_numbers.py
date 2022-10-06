@@ -16,6 +16,8 @@ The root-to-leaf path 1->3 represents the number 13.
 
 Return the sum = 12 + 13 = 25.
 """
+
+
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -24,11 +26,7 @@ Return the sum = 12 + 13 = 25.
 #         self.right = None
 
 class Solution(object):
-    def sumNumbers(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
         if root is None:
             return 0
         return self.leafSum(root, 0)
@@ -37,7 +35,7 @@ class Solution(object):
         prefix *= 10
         prefix += root.val
         if not root.left and not root.right:
-            return prefix 
+            return prefix
         else:
             soln = 0
             if root.left:
@@ -46,7 +44,9 @@ class Solution(object):
                 soln += self.leafSum(root.right, prefix)
             return soln
 
+
 from binarySearchTree import *
+
 a = Solution()
-t = BST([2,1,3])
+t = BST([2, 1, 3])
 print(a.sumNumbers(t.root) == 44)

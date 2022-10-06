@@ -21,16 +21,19 @@ Credits:
     Show Tags
     Show Similar Problems
 """
-class Solution(object):
-    def rotate(self, nums, k):
+
+
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
         """
-        :type nums: List[int]
-        :type k: int
-        :rtype: void Do not return anything, modify nums in-place instead.
+        Do not return anything, modify nums in-place instead.
         """
-        n=len(nums)
-        k%=n
-        nums[:]=nums[n-k:]+nums[:n-k]
+        k_res = k % len(nums)
+
+        nums[:] = nums[-k_res:] + nums[:-k_res]
+
+        return
+
 
 """
 Note:

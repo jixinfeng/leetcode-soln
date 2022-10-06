@@ -12,21 +12,19 @@ once, otherwise return -1.
 Note:
     The solution is guaranteed to be unique.
 """
-class Solution(object):
-    def canCompleteCircuit(self, gas, cost):
-        """
-        :type gas: List[int]
-        :type cost: List[int]
-        :rtype: int
-        """
-        start, gasLeft = 0, 0
-        for i in range(len(gas)):
-            gasLeft += gas[i] - cost[i]
-            if gasLeft < 0:
-                start += i + 1
-                gasLeft = 0
+
+
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        start, gas_left = 0, 0
+        for i in range(len(cost)):
+            gas_left += (gas[i] - cost[i])
+            if gas_left < 0:
+                start = i + 1
+                gas_left = 0
+
         return start if sum(gas) >= sum(cost) else -1
 
-import collections
+
 a = Solution()
-print(a.canCompleteCircuit([1,2,3,4,5],[3,3,3,3,3]))
+print(a.canCompleteCircuit([1, 2, 3, 4, 5], [3, 3, 3, 3, 3]))

@@ -8,14 +8,12 @@ For example, the 32-bit integer ’11' has binary representation
 Credits:
     Special thanks to @ts for adding this problem and creating all test cases.
 """
-class Solution(object):
-    def hammingWeight(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        sum1=0
-        while n>0:
-            sum1+=n%2
-            n/=2
-        return sum1
+
+
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        sum_of_one = 0
+        while n:
+            n, bit = divmod(n, 2)
+            sum_of_one += bit
+        return sum_of_one

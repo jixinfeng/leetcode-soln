@@ -38,8 +38,10 @@ You may assume that if a is a prefix of b, then a must appear before b in the gi
 If the order is invalid, return an empty string.
 There may be multiple valid order of letters, return any one of them is fine.
 """
+
+
 class Solution(object):
-    def alienOrder(self, words):
+    def alienOrder(self, words: List[str]) -> str:
         """
         :type words: List[str]
         :rtype: str
@@ -47,8 +49,8 @@ class Solution(object):
         if words is None or words == []:
             return ""
         chars = set().union(*map(set, words))
-        outs = {c : set() for c in chars}
-        indegrees = {c : 0 for c in chars}
+        outs = {c: set() for c in chars}
+        indegrees = {c: 0 for c in chars}
         for i in range(len(words) - 1):
             before, after = words[i], words[i + 1]
             for j in range(min(len(before), len(after))):
@@ -73,14 +75,15 @@ class Solution(object):
         else:
             return "".join(soln)
 
+
 a = Solution()
-#words = ["wrt","wrf","er","ett","rftt"]
-#print(a.alienOrder(words))
-#words = ["z","x","y","x"]
-#print(a.alienOrder(words))
-#words = ["z", "z"]
-#print(a.alienOrder(words))
-#words = ["wrt","wrtkj"]
-#print(a.alienOrder(words))
-words = ["za","zb","ca","cb"]
+# words = ["wrt","wrf","er","ett","rftt"]
+# print(a.alienOrder(words))
+# words = ["z","x","y","x"]
+# print(a.alienOrder(words))
+# words = ["z", "z"]
+# print(a.alienOrder(words))
+# words = ["wrt","wrtkj"]
+# print(a.alienOrder(words))
+words = ["za", "zb", "ca", "cb"]
 print(a.alienOrder(words))

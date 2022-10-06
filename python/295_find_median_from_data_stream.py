@@ -27,6 +27,8 @@ Credits:
 
     Special thanks to @Louis1992 for adding this problem and creating all test cases.
 """
+
+
 class MedianFinder:
     def __init__(self):
         """
@@ -54,12 +56,14 @@ class MedianFinder:
         else:
             return (self.high[0] - self.low[0]) / 2.0
 
+
 # Your MedianFinder object will be instantiated and called as such:
 # mf = MedianFinder()
 # mf.addNum(1)
 # mf.findMedian()
 
 import heapq
+
 a = MedianFinder()
 for i in [40, 12, 16]:
     a.addNum(i)

@@ -30,3 +30,38 @@ Constraints:
 pattern and s consist of only lowercase English letters.
 """
 
+
+class Solution:
+    def wordPatternMatch(self, pattern: str, s: str) -> bool:
+        return self._wordPatternMatch(pattern, s, {}, {})
+
+    def _wordPatternMatch(self, pattern: str, s: str, ptw: Dict, wtp: Dict) -> bool:
+        if not pattern and not s:
+            return True
+        if not pattern or not s:
+            return False
+
+        curr_pattern = pattern[0]
+        for i in range(1, len(s) + 1):
+            curr_word = s[:i]
+            if curr_pattern in ptw and ptw[curr_pattern] != curr_word \
+                    or curr_word in wtp and wtp[curr_word] != curr_pattern:
+                continue
+
+            elif ptw.get(curr_pattern, "") == curr_word \
+                    and wtp.get(curr_word, "") == curr_pattern:
+                if self._wordPatternMatch(pattern[1:], s[i:], ptw, wtp):
+                    return True
+                else:
+                    continue
+
+            else:
+                next_ptw = {**ptw, **{curr_pattern: curr_word}}
+                next_wtp = {**wtp, **{curr_word: curr_pattern}}
+                if self._wordPatternMatch(pattern[1:], s[i:], next_ptw, next_wtp):
+                    return True
+
+                else:
+                    continue
+
+        return False

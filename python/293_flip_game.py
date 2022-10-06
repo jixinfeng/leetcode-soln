@@ -18,18 +18,20 @@ following states:
 
 If there is no valid move, return an empty list [].
 """
+
+
 class Solution(object):
-    def generatePossibleNextMoves(self, s):
+    def generatePossibleNextMoves(self, currentState: str) -> List[str]:
         """
-        :type s: str
+        :type currentState: str
         :rtype: List[str]
         """
-        moves=[]
-        if len(s)<=1:
+        moves = []
+        if len(currentState) <= 1:
             return moves
-        for i in range(len(s)-1):
-            if s[i]=='+' and s[i+1]=='+':
-                move=list(s)
-                move[i],move[i+1]='-','-'
+        for i in range(len(currentState) - 1):
+            if currentState[i] == '+' and currentState[i + 1] == '+':
+                move = list(currentState)
+                move[i], move[i + 1] = '-', '-'
                 moves.append(''.join(move))
         return moves

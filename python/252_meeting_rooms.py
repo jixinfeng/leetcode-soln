@@ -7,20 +7,19 @@ For example,
 Given [[0, 30],[5, 10],[15, 20]],
 return false.
 """
+
+
 # Definition for an interval.
 # class Interval(object):
 #     def __init__(self, s=0, e=0):
 #         self.start = s
 #         self.end = e
 
-class Solution(object):
-    def canAttendMeetings(self, intervals):
-        """
-        :type intervals: List[Interval]
-        :rtype: bool
-        """
-        intervals.sort(key=lambda x:(x.start, x.end))
-        for i in range(len(intervals)-1):
-            if intervals[i].end>intervals[i+1].start:
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        sorted_intervals = sorted(intervals, key=lambda x: x[0])
+        for i in range(1, len(sorted_intervals)):
+            if sorted_intervals[i][0] < sorted_intervals[i - 1][1]:
                 return False
+
         return True

@@ -11,21 +11,20 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and creating
     all test cases.
 """
-class Solution(object):
-    def isUgly(self, num):
-        """
-        :type num: int
-        :rtype: bool
-        """
-        if num<=0:
+
+
+class Solution:
+    def isUgly(self, n: int) -> bool:
+        if n <= 0:
             return False
-        elif num==1:
-            return True
-        else:
-            while num%2==0:
-                num/=2
-            while num%3==0:
-                num/=3
-            while num%5==0:
-                num/=5
-            return num==1
+
+        while not n % 2:
+            n //= 2
+
+        while not n % 3:
+            n //= 3
+
+        while not n % 5:
+            n //= 5
+
+        return n == 1

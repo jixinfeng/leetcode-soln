@@ -16,33 +16,27 @@ Credits:
     Special thanks to @pbrother for adding this problem and creating all test
     cases.
 """
-class Solution(object):
-    def lengthOfLIS(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if nums is None or nums == []:
+import bisect
+
+
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums:
             return 0
-        tails = [nums[0]]
-        for num in nums[1:]:
-            if num < tails[0]:
-                tails[0] = num
-            elif num > tails[-1]:
-                tails.append(num)
+
+        dp = []
+        for i in range(len(nums)):
+            if not dp or nums[i] > dp[-1]:
+                dp.append(nums[i])
             else:
-                low, high = 0, len(tails) - 1
-                while low <= high:
-                    mid = (low + high) // 2
-                    if tails[mid] >= num:
-                        high = mid - 1
-                    else:
-                        low = mid + 1
-                tails[low] = num
-        return len(tails)
+                j = bisect.bisect_left(dp, nums[i])
+                dp[j] = nums[i]
+
+        return len(dp)
+
 
 a = Solution()
-print(a.lengthOfLIS([10,9,2,5,3,7,101,18]))
+print(a.lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
 
 """
 DP solution O(n^2)

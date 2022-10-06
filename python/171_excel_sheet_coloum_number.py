@@ -17,13 +17,13 @@ For example:
 Credits:
     Special thanks to @ts for adding this problem and creating all test cases.
 """
-class Solution(object):
-    def titleToNumber(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        column = 0
-        for i, char in enumerate(s[::-1]):
-            column += (ord(char) - 64) * pow(26, i)
-        return column
+
+
+class Solution:
+    def titleToNumber(self, columnTitle: str) -> int:
+        weights = {c: i + 1 for i, c in enumerate(string.ascii_uppercase)}
+        result = 0
+        for ch in columnTitle:
+            result = result * 26 + weights[ch]
+
+        return result

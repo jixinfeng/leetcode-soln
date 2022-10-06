@@ -15,24 +15,22 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and creating
     all test cases.
 """
-# The isBadVersion API is already defined for you.
-# @param version, an integer
-# @return a bool
-# def isBadVersion(version):
 
-class Solution(object):
-    def firstBadVersion(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
+
+# The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
+
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
         if isBadVersion(1):
             return 1
+
         left, right = 1, n
-        while left < right - 1:
-            middle = left + (right - left) // 2
-            if isBadVersion(middle):
-                right = middle
+        while left + 1 < right:
+            mid = left + (right - left) // 2
+            if isBadVersion(mid):
+                right = mid
             else:
-                left = middle
+                left = mid
+
         return right

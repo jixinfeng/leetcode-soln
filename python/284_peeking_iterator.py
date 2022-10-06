@@ -30,6 +30,8 @@ Credits:
     Special thanks to @porker2008 for adding this problem and creating all test
     cases.
 """
+
+
 # Below is the interface for Iterator, which is already defined for you.
 #
 # class Iterator(object):
@@ -51,45 +53,39 @@ Credits:
 #         :rtype: int
 #         """
 
-class PeekingIterator(object):
+class PeekingIterator:
     def __init__(self, iterator):
         """
         Initialize your data structure here.
         :type iterator: Iterator
         """
         self.iterator = iterator
-        self.cache = collections.deque()
-        
+        self.next_value = self.iterator.next()
+        self.has_next = True
 
     def peek(self):
         """
         Returns the next element in the iteration without advancing the iterator.
         :rtype: int
         """
-        if len(self.cache) == 0:
-            peekVal = self.iterator.next()
-            self.cache.append(peekVal)
-        else:
-            peekVal = self.cache[0]
-        return peekVal
+        return self.next_value
 
     def next(self):
         """
         :rtype: int
         """
-        if len(self.cache) == 0:
-            return self.iterator.next()
+        value = self.next_value
+        if self.iterator.hasNext():
+            self.next_value = self.iterator.next()
         else:
-            return self.cache.popleft()
+            self.has_next = False
+        return value
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        if len(self.cache) == 0:
-            return self.iterator.hasNext()
-        else:
-            return True
+        return self.has_next
 
 # Your PeekingIterator object will be instantiated and called as such:
 # iter = PeekingIterator(Iterator(nums))

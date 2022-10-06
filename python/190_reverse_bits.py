@@ -14,18 +14,25 @@ Credits:
     Special thanks to @ts for adding this problem and creating all test
     cases.
 """
-class Solution(object):
-    def reverseBits(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        digits=['0']*32
-        binDigits=bin(n)[2:]
-        for i in range(len(binDigits)):
-            digits[i]=binDigits[-(i+1)]
-        return int(''.join(digits),2)
 
-a=Solution()
+
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        result = 0
+        power = 31
+        while n:
+            n, bit = divmod(n, 2)
+            result += bit * 2 ** power
+            power -= 1
+        return result
+
+
+a = Solution()
 for i in range(10):
-    print(i,bin(i)[2:],a.reverseBits(i))
+    print(i, bin(i)[2:], a.reverseBits(i))
+
+"""
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        return int(bin(n)[2:].zfill(32)[::-1], base=2)
+"""

@@ -21,13 +21,15 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and
     creating all test cases.
 """
+
+
 class Solution(object):
-    def canWinNim(self, n):
+    def canWinNim(self, n: int) -> bool:
         """
         :type n: int
         :rtype: bool
         """
-        if n%4==0:
+        if n % 4 == 0:
             return False
         else:
             return True

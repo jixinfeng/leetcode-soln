@@ -9,25 +9,23 @@ Credits:
     Special thanks to @mithmatt for adding this problem and creating all test
     cases.
 """
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
 
-class Solution(object):
-    def removeElements(self, head, val):
-        """
-        :type head: ListNode
-        :type val: int
-        :rtype: ListNode
-        """
-        placeHolder=ListNode(0)
-        placeHolder.next=head
-        p=placeHolder
-        while p and p.next:
-            if p.next.val==val:
-                p.next=p.next.next
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        sentinel = ListNode(0)
+        sentinel.next = head
+        prev, curr = sentinel, head
+        while curr:
+            if curr.val == val:
+                prev.next = curr.next
             else:
-                p=p.next
-        return placeHolder.next
+                prev = curr
+            curr = curr.next
+
+        return sentinel.next

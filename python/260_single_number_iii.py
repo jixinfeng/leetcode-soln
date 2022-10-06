@@ -20,22 +20,19 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and creating
     all test cases.
 """
-class Solution(object):
-    def singleNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        count = collections.defaultdict(int)
-        for num in nums:
-            count[num] += 1
-        soln = []
-        for num in count:
-            if count[num] == 1:
-                soln.append(num)
-                if len(soln) == 2:
-                    break
-        return soln       
+
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        candidates = set()
+        for n in nums:
+            if n in candidates:
+                candidates.remove(n)
+            else:
+                candidates.add(n)
+
+        return list(candidates)
+
 
 """
 Bit operation solution

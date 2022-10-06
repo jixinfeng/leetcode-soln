@@ -12,21 +12,23 @@ win by flipping the middle "++" to become "+--+".
 Follow up:
     Derive your algorithm's runtime complexity.
 """
+
+
 class Solution(object):
-    def canWin(self, s):
+    def canWin(self, currentState: str) -> bool:
         """
-        :type s: str
+        :type currentStates: str
         :rtype: bool
         """
-        if len(s) < 2:
+        if len(currentState) < 2:
             return False
-        self.strings = collections.defaultdict(bool)
-        for i in range(len(s) - 1):
-            if s[i] == '+' and s[i + 1] == '+':
-                oppo = s[0:i] + '--' + s[i + 2:]
-                if self.canWin(oppo) == False:
+        for i in range(len(currentState) - 1):
+            if currentState[i] == '+' and currentState[i + 1] == '+':
+                oppo = currentState[0:i] + '--' + currentState[i + 2:]
+                if not self.canWin(oppo):
                     return True
         return False
+
 
 a = Solution()
 print(a.canWin('++-++'))

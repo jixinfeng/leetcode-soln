@@ -17,22 +17,33 @@ For example,
 Note:
     You may assume word1 and word2 are both in the list.
 """
-class Solution(object):
-    def shortestWordDistance(self, words, word1, word2):
-        """
-        :type words: List[str]
-        :type word1: str
-        :type word2: str
-        :rtype: int
-        """
-        word1Locs = []
-        word2Locs = []
-        for i, word in enumerate(words):
+
+
+class Solution:
+    def shortestWordDistance(self, wordsDict: List[str], word1: str, word2: str) -> int:
+        loc_1 = []
+        loc_2 = []
+
+        for i, word in enumerate(wordsDict):
             if word == word1:
-                word1Locs.append(i)
+                loc_1.append(i)
+
             if word == word2:
-                word2Locs.append(i)
-        return min(abs(x - y)
-                  for x in word1Locs
-                  for y in word2Locs
-                  if x != y)
+                loc_2.append(i)
+
+        min_dist = len(wordsDict)
+
+        for x in loc_1:
+            for y in loc_2:
+                if x == y:
+                    continue
+                if abs(x - y) == 1:
+                    return 1
+                if x < y and y - x >= min_dist:
+                    break
+                if y < x and x - y >= min_dist:
+                    continue
+
+                min_dist = min(min_dist, abs(x - y))
+
+        return min_dist

@@ -18,24 +18,22 @@ Credits:
     Special thanks to @mithmatt and @ts for adding this problem and creating all
     test cases.
 """
-class Solution(object):
-    def isHappy(self, n):
-        """
-        :type n: int
-        :rtype: bool
-        """
-        if n==1:
-            return True
-        else:
-            path=set()
-            path.add(n)
-            while True:
-                digits=[int(d) for d in str(n)]
-                sqsum=sum([d**2 for d in digits])
-                if sqsum==1:
-                    return True
-                elif sqsum in path:
-                    return False
-                else:
-                    path.add(sqsum)
-                    n=sqsum
+
+
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        seen = set()
+
+        while n != 1 and n not in seen:
+            seen.add(n)
+            n = self.get_next(n)
+
+        return n == 1
+
+    def get_next(self, n: int) -> int:
+        result = 0
+        while n > 0:
+            n, digit = divmod(n, 10)
+            result += digit ** 2
+
+        return result

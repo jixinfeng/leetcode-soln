@@ -14,16 +14,14 @@ For example:
 Credits:
     Special thanks to @ifanchu for adding this problem and creating all test cases.
 """
-class Solution(object):
-    def convertToTitle(self, n):
-        """
-        :type n: int
-        :rtype: str
-        """
-        title=[]
-        while n>0:
-            n-=1
-            title.append(chr(n%26+ord('A')))
-            n//=26
-        title.reverse()
-        return ''.join(title)
+
+
+class Solution:
+    def convertToTitle(self, columnNumber: int) -> str:
+        weights = {i: c for i, c in enumerate(string.ascii_uppercase)}
+        title = []
+        while columnNumber:
+            columnNumber, residue = divmod(columnNumber - 1, 26)
+            title.append(weights[residue])
+
+        return "".join(title[::-1])

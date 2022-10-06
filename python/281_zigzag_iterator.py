@@ -23,44 +23,25 @@ Clarification for the follow up question - Update (2015-09-18):
     
     It should return [1,4,8,2,5,9,3,6,7].
 """
-class ZigzagIterator(object):
-    def __init__(self, v1, v2):
-        """
-        Initialize your data structure here.
-        :type v1: List[int]
-        :type v2: List[int]
-        """
-        self.v1 = [c for c in reversed(v1)]
-        self.v2 = [c for c in reversed(v2)]
-        self.loc = 0
-        
-    def next(self):
-        """
-        :rtype: int
-        """
-        if self.loc:
-            self.loc = not self.loc
-            if len(self.v2) > 0:
-                return self.v2.pop()
-            else:
-                return self.next()
-        else:
-            self.loc = not self.loc
-            if len(self.v1) > 0:
-                return self.v1.pop()
-            else:
-                return self.next()
 
-    def hasNext(self):
-        """
-        :rtype: bool
-        """
-        return len(self.v1) > 0 or len(self.v2) > 0
 
-a = ZigzagIterator([1,2],[3,4,5,6])
-while a.hasNext():
-    print(a.next())
-        
+class ZigzagIterator:
+    def __init__(self, v1: List[int], v2: List[int]):
+        self.values = [v1, v2]
+        self.idx = [0, 0]
+        self.row = 0 if v1 else 1
+
+    def next(self) -> int:
+        next_row = (self.row + 1) % 2
+        value = self.values[self.row][self.idx[self.row]]
+        self.idx[self.row] += 1
+        if self.idx[next_row] < len(self.values[next_row]):
+            self.row = next_row
+
+        return value
+
+    def hasNext(self) -> bool:
+        return self.idx[self.row] < len(self.values[self.row])
 
 # Your ZigzagIterator object will be instantiated and called as such:
 # i, v = ZigzagIterator(v1, v2), []

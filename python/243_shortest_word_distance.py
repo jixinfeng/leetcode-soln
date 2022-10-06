@@ -12,22 +12,16 @@ Note:
     You may assume that word1 does not equal to word2, and word1 and word2 are
     both in the list.
 """
-class Solution(object):
-    def shortestDistance(self, words, word1, word2):
-        """
-        :type words: List[str]
-        :type word1: str
-        :type word2: str
-        :rtype: int
-        """
-        wordsLen = len(words)
-        loc1, loc2 = wordsLen, wordsLen
-        minDist = wordsLen
-        for i, word in enumerate(words):
+
+
+class Solution:
+    def shortestDistance(self, wordsDict: List[str], word1: str, word2: str) -> int:
+        loc_1 = []
+        loc_2 = []
+        for i, word in enumerate(wordsDict):
             if word == word1:
-                loc1 = i
-                minDist = min(abs(loc1 - loc2), minDist)
-            elif word == word2:
-                loc2 = i
-                minDist = min(abs(loc1 - loc2), minDist)
-        return minDist
+                loc_1.append(i)
+            if word == word2:
+                loc_2.append(i)
+
+        return min([abs(l1 - l2) for l1 in loc_1 for l2 in loc_2])

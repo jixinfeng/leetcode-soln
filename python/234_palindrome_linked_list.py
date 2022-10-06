@@ -4,37 +4,23 @@ Given a singly linked list, determine if it is a palindrome.
 Follow up:
     Could you do it in O(n) time and O(1) space?
 """
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
 
-class Solution(object):
-    def isPalindrome(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
-        if head is None or head.next is None:
-            return True
-        placeHolder=ListNode(0)
-        placeHolder.next=head
-        p=placeHolder
-        q=None
-        while p.next:
-            p=p.next
-            r=ListNode(p.val)
-            r.next=q
-            q=r
-        p=placeHolder.next
-        while p.next:
-            if p.val!=q.val:
-                return False
-            else:
-                p=p.next
-                q=q.next
-        return True
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        node = head
+        values = []
+        while node:
+            values.append(node.val)
+            node = node.next
+
+        return values == values[::-1]
+
 
 """
 Faster and resourse friendlier solution from:

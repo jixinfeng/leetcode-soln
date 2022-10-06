@@ -12,43 +12,25 @@ For example,
     find(4) -> true
     find(7) -> false
 """
-class TwoSum(object):
+
+
+class TwoSum:
 
     def __init__(self):
-        """
-        initialize your data structure here
-        """
-        self.nums=collections.defaultdict(int)
-        
+        self.counts = {}
 
-    def add(self, number):
-        """
-        Add the number to an internal data structure.
-        :rtype: nothing
-        """
-        self.nums[number]+=1
-        
+    def add(self, number: int) -> None:
+        self.counts[number] = self.counts.get(number, 0) + 1
 
-    def find(self, value):
-        """
-        Find if there exists any pair of numbers which sum is equal to the value.
-        :type value: int
-        :rtype: bool
-        """
-        for num in self.nums:
-            target=value-num
-            if target in self.nums and (target!=num or self.nums[num]>1):
+    def find(self, value: int) -> bool:
+        for i in self.counts.keys():
+            j = value - i
+            if j in self.counts and (i != j or self.counts[i] > 1):
                 return True
+
         return False
-        
 
 # Your TwoSum object will be instantiated and called as such:
-# twoSum = TwoSum()
-# twoSum.add(number)
-# twoSum.find(value)
-"""
-https://docs.python.org/3.5/library/collections.html#collections.defaultdict
-8.3. collections — Container datatypes
-This module implements specialized container datatypes providing alternatives to
-Python’s general purpose built-in containers, dict, list, set, and tuple.
-"""
+# obj = TwoSum()
+# obj.add(number)
+# param_2 = obj.find(value)

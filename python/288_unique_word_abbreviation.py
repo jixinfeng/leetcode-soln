@@ -27,51 +27,54 @@ Example:
     isUnique("cane") -> false
     isUnique("make") -> true
 """
+
+
 class ValidWordAbbr(object):
-    def __init__(self, dictionary):
+    def __init__(self, dictionary: List[str]):
         """
         initialize your data structure here.
         :type dictionary: List[str]
         """
-        self.abbrevs=collections.defaultdict(list)
+        self.abbrevs = collections.defaultdict(list)
         for word in set(dictionary):
-            abbr=self.getAbbr(word)
+            abbr = self.getAbbr(word)
             self.abbrevs[abbr].append(word)
 
-    def getAbbr(self,word):
-        if len(word)<=2:
+    def getAbbr(self, word):
+        if len(word) <= 2:
             return word
         else:
-            return "".join([word[0],str(len(word)-2),word[-1]])
+            return "".join([word[0], str(len(word) - 2), word[-1]])
 
-    def isUnique(self, word):
+    def isUnique(self, word: str) -> bool:
         """
         check if a word is unique.
         :type word: str
         :rtype: bool
         """
-        abbr=self.getAbbr(word)
-        value=self.abbrevs.get(abbr,None)
-        return value is None or value==[word]
+        abbr = self.getAbbr(word)
+        value = self.abbrevs.get(abbr, None)
+        return value is None or value == [word]
 
-        
+
 import collections
-a=ValidWordAbbr([ "deer", "door", "cake", "card" ])
+
+a = ValidWordAbbr(["deer", "door", "cake", "card"])
 print(a.isUnique("dear"))
 print(a.isUnique("cart"))
 print(a.isUnique("cane"))
 print(a.isUnique("make"))
 
-a=ValidWordAbbr(["hello"])
+a = ValidWordAbbr(["hello"])
 print(a.isUnique("hello"))
 
-a=ValidWordAbbr([ "deer", "door", "cake", "card" ])
+a = ValidWordAbbr(["deer", "door", "cake", "card"])
 print(a.isUnique("deer"))
 print(a.isUnique("door"))
 print(a.isUnique("card"))
 print(a.isUnique("cake"))
 
-a=ValidWordAbbr(["a","a"])
+a = ValidWordAbbr(["a", "a"])
 print(a.isUnique("a"))
 
 # Your ValidWordAbbr object will be instantiated and called as such:

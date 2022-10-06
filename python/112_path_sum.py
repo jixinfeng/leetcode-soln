@@ -13,24 +13,20 @@ For example:
             7    2      1
     return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 """
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
-class Solution(object):
-    def hasPathSum(self, root, sum):
-        """
-        :type root: TreeNode
-        :type sum: int
-        :rtype: bool
-        """
-        if root is None:
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if not root:
             return False
-        elif root.val==sum and root.left is None and root.right is None:
-            return True
+        if not root.left and not root.right:
+            return root.val == targetSum
         else:
-            sum-=root.val
-            return self.hasPathSum(root.left,sum) or self.hasPathSum(root.right,sum)
+            return self.hasPathSum(root.left, targetSum - root.val) or \
+                   root.right and self.hasPathSum(root.right, targetSum - root.val)

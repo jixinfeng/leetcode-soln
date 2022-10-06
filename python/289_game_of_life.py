@@ -37,38 +37,69 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and creating
     all test cases.
 """
-class Solution(object):
-    def gameOfLife(self, board):
-        """
-        :type board: List[List[int]]
-        :rtype: void Do not return anything, modify board in-place instead.
-        """
-        xLen = len(board)
-        yLen = len(board[0])
-        xLoc = [-1, -1, -1,  0, 0,  1, 1, 1]
-        yLoc = [-1,  0,  1, -1, 1, -1, 0, 1]
-        for i in range(xLen):
-            for j in range(yLen):
-                nCount = 0
-                for k in range(8):
-                    nCount += self.getCurrentStatus(board, i + xLoc[k],
-                                                    j + yLoc[k])
-                if nCount == 2:
-                    board[i][j] += board[i][j] << 1
-                if nCount == 3:
-                    board[i][j] += 1 << 1
-        for i in range(xLen):
-            for j in range(yLen):
-                board[i][j] = board[i][j] >> 1
 
-    def getCurrentStatus(self, board, i, j):
-        x = len(board) - 1
-        y = len(board[0]) - 1
-        if i < 0 or i > x:
+
+class Solution:
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                curr_state = board[i][j]
+                neighbor_count = self.count_neighbors(board, i, j)
+                flip = False
+                if (curr_state and (neighbor_count < 2 or neighbor_count > 3)) or (
+                        not curr_state and neighbor_count == 3):
+                    flip = True
+                board[i][j] = self.encode(curr_state, flip)
+
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                board[i][j] = self.decode_next_state(board[i][j])
+
+        return
+
+    def encode(self, curr_state: int, flip: bool) -> int:
+        if not flip:
+            return curr_state
+        else:
+            if curr_state == 1:
+                # 1 -> 0: -1
+                return -1
+            else:
+                # 0 -> 1: 2
+                return 2
+
+    def decode_prev_state(self, curr_state: int) -> int:
+        if curr_state in {0, 1}:
+            return curr_state
+        elif curr_state == -1:
+            return 1
+        else:
             return 0
-        if j < 0 or j > y:
-            return 0
-        return board[i][j] & 1
+
+    def decode_next_state(self, curr_state: int) -> int:
+        return int(curr_state > 0)
+
+    def count_neighbors(self, board: List[List[int]], curr_i: int, curr_j: int) -> int:
+        max_i = len(board) - 1
+        max_j = len(board[0]) - 1
+        neighbor_count = 0
+        for d_i in [-1, 0, 1]:
+            for d_j in [-1, 0, 1]:
+                if d_i == 0 and d_j == 0:
+                    continue
+
+                neighbor_i = curr_i + d_i
+                neighbor_j = curr_j + d_j
+                if neighbor_i < 0 or neighbor_i > max_i or neighbor_j < 0 or neighbor_j > max_j:
+                    continue
+
+                neighbor_count += self.decode_prev_state(board[neighbor_i][neighbor_j])
+
+        return neighbor_count
+
 
 a = Solution()
 a.gameOfLife([[1, 1, 1], [1, 0, 1], [1, 1, 1]])

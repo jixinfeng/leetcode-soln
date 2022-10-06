@@ -21,16 +21,21 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem
     and creating all test cases.
 """
-class Solution(object):
-    def addDigits(self, num):
-        """
-        :type num: int
-        :rtype: int
-        """
-        while num>9:
-            c=0
+
+
+class Solution:
+    def addDigits(self, num: int) -> int:
+        while num >= 10:
+            c = 0
             while num:
-                c+=num%10
-                num//=10
-            num=c
+                num, r = divmod(num, 10)
+                c += r
+            num = c
         return num
+
+
+# class Solution:
+#     def addDigits(self, num: int) -> int:
+#         while num >= 10:
+#             num = sum(map(int, list(str(num))))
+#         return num

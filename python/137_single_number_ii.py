@@ -6,15 +6,8 @@ Note:
     Your algorithm should have a linear runtime complexity. Could you implement it
     without using extra memory?
 """
-class Solution(object):
-    def singleNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        count = collections.defaultdict(int)
-        for num in nums:
-            count[num] += 1
-        for num in nums:
-            if count[num] == 1:
-                return num       
+
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        return (sum(set(nums)) * 3 - sum(nums)) // 2

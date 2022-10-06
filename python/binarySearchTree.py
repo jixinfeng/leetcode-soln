@@ -51,7 +51,7 @@ class TreeNode(object):
 
 
 class BST(object):
-    def __init__(self, data = None):
+    def __init__(self, data=None):
         self.root = None
         if data:
             for x in data:
@@ -70,7 +70,7 @@ class BST(object):
         if self.root:
             self.root.delete(x)
 
-    def toList(self, order = 0):
+    def toList(self, order=0):
         """
         -1: preorder traversal
          0: inorder traversal
@@ -83,7 +83,7 @@ class BST(object):
         else:
             return self.postorder(self.root, [])
 
-    def toString(self, order = 0, sep = ' '):
+    def toString(self, order=0, sep=' '):
         """
         -1: preorder traversal
          0: inorder traversal
@@ -116,6 +116,7 @@ class BST(object):
         ans += [loc.val]
         return ans
 
+
 if __name__ == "__main__":
-    a = BST([2,1,3])
+    a = BST([2, 1, 3])
     print(a.toList())

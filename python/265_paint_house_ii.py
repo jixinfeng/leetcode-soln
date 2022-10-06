@@ -14,19 +14,16 @@ Note:
 Follow up:
     Could you solve it in O(nk) runtime?
 """
-class Solution(object):
-    def minCostII(self, costs):
-        """
-        :type costs: List[List[int]]
-        :rtype: int
-        """
-        if costs is None or costs == []:
-            return 0
+
+
+class Solution:
+    def minCostII(self, costs: List[List[int]]) -> int:
         houses = len(costs)
         colors = len(costs[0])
-        soln = [[0 for j in range(colors)] for i in range(houses)]
-        soln[0] = costs[0][:]
+        dp = [[0 for _ in range(colors)] for _ in range(houses)]
+        dp[0] = costs[0]
         for i in range(1, houses):
-            for j in range(colors):
-                soln[i][j] = min(soln[i - 1][:j] + soln[i - 1][j + 1:]) + costs[i][j]
-        return min(soln[-1])
+            for c in range(colors):
+                dp[i][c] = min([dp[i - 1][j] for j in range(colors) if c != j]) + costs[i][c]
+
+        return min(dp[-1])

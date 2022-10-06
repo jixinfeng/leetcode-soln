@@ -23,62 +23,52 @@ Note:
 You should be familiar with how a Trie works. If not, please work on this
 problem: Implement Trie (Prefix Tree) first.
 """
-class WordDictionary(object):
-    class TrieNode(object):
-        def __init__(self):
+
+
+class WordDictionary:
+    class TrieNode:
+        def __init__(self, ch, end):
+            self.ch = ch
+            self.end = end
             self.leaves = {}
-            self.nil = False
 
     def __init__(self):
-        """
-        initialize your data structure here.
-        """
-        self.root = self.TrieNode()
+        self.root = self.TrieNode(ch=None, end=False)
 
-    def addWord(self, word):
-        """
-        Adds a word into the data structure.
-        :type word: str
-        :rtype: void
-        """
-        loc = self.root
+    def addWord(self, word: str) -> None:
+        if not word:
+            return
+        p = self.root
         for c in word:
-            if c not in loc.leaves:
-                loc.leaves[c] = self.TrieNode()
-            loc = loc.leaves[c]
-        loc.nil = True
+            if c not in p.leaves.keys():
+                p.leaves[c] = self.TrieNode(ch=c, end=False)
+            p = p.leaves[c]
 
-    def searchTail(self, tail, loc):
-        if tail == '':
-            return loc.nil
-        for i, c in enumerate(tail):
-            if c == '.':
-                if loc.leaves == {}:
-                    return False
-                else:
-                    for leaf in loc.leaves:
-                        if self.searchTail(tail[i + 1:], loc.leaves[leaf]):
-                            return True
-                    return False
-            elif c in loc.leaves:
-                loc = loc.leaves[c]
-            else:
-                return False
-        return loc.nil
+        p.end = True
 
-    def search(self, word):
-        """
-        Returns if the word is in the data structure. A word could
-        contain the dot character '.' to represent any one letter.
-        :type word: str
-        :rtype: bool
-        """
-        return self.searchTail(word, self.root)
+    def search(self, word: str) -> bool:
+        return self._search(word, self.root)
+
+    def _search(self, word, root):
+        if not word:
+            return root.end
+
+        curr_char = word[0]
+        word_tail = word[1:]
+        if curr_char == '.':
+            for child in root.leaves.values():
+                if self._search(word_tail, child):
+                    return True
+            return False
+
+        else:
+            return curr_char in root.leaves.keys() and self._search(word_tail, root.leaves[curr_char])
+
 
 # Your WordDictionary object will be instantiated and called as such:
-# wordDictionary = WordDictionary()
-# wordDictionary.addWord("word")
-# wordDictionary.search("pattern")
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
 
 a = WordDictionary()
 a.addWord('bad')

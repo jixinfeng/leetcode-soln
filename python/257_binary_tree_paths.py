@@ -16,29 +16,37 @@ All root-to-leaf paths are:
 Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and creating all test cases.
 """
+
+
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    # @param {TreeNode} root
-    # @return {string[]}
-    def binaryTreePaths(self, root):
-        self.paths=[]
-        if root is None:
-            return self.paths
-        def dfs(root, path):
-            if root.left is None and root.right is None:
-                self.paths.append(path)
-            if root.left:
-                dfs(root.left,path+'->'+str(root.left.val))
-            if root.right:
-                dfs(root.right,path+'->'+str(root.right.val))
-        dfs(root,str(root.val))
-        return self.paths
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        if not root:
+            return []
+
+        paths = []
+        stack = [(root, [str(root.val)])]  # (node, path) tuple
+
+        while stack:
+            print(list(map(lambda x: (x[0].val, x[1]), stack)))
+            node, curr_path = stack.pop()
+
+            if not node.left and not node.right:
+                paths.append('->'.join(curr_path))
+
+            if node.left:
+                stack.append((node.left, curr_path + [str(node.left.val)]))
+
+            if node.right:
+                stack.append((node.right, curr_path + [str(node.right.val)]))
+
+        return paths
+
 
 """
 Shorter DFS from leetcode

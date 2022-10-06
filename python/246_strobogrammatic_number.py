@@ -7,25 +7,30 @@ represented as a string.
 
 For example, the numbers "69", "88", and "818" are all strobogrammatic.
 """
-class Solution(object):
-    def isStrobogrammatic(self, num):
-        """
-        :type num: str
-        :rtype: bool
-        """
-        original=[c for c in num]
-        rev=original[:]
-        rev.reverse()
-        print(original)
-        print(rev)
-        for i in range(len(original)/2+1):
-            if (original[i]=="6" and rev[i]=="9") or (original[i]=="9" and rev[i]=="6"):
-                continue
-            if original[i] in set(["0","1","8"]) and rev[i]==original[i]:
-                continue
-            else:
+
+
+class Solution:
+    def isStrobogrammatic(self, num: str) -> bool:
+        if len(num) == 1:
+            return num in {'0', '1', '8'}
+        if int(num) % 10 == 0:
+            return False
+        flip_dict = {'0': '0', '1': '1', '6': '9', '8': '8', '9': '6'}
+
+        left, right = 0, len(num) - 1
+        while left <= right:
+            if left == right:
+                return num[left] in {'0', '1', '8'}
+            elif num[left] not in flip_dict or num[right] not in flip_dict:
                 return False
+            elif flip_dict[num[left]] != num[right]:
+                return False
+            else:
+                left += 1
+                right -= 1
+
         return True
+
 
 """
 Note:

@@ -26,20 +26,28 @@ Credits:
     Special thanks to @jianchao.li.fighter for adding this problem and creating
     all test cases.
 """
-class Solution(object):
-    def nthUglyNumber(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        h = [(1, 1)]
-        for i in range(n):
-            val, fact = heapq.heappop(h)
-            for j in [2, 3, 5]:
-                if fact <= j:
-                    heapq.heappush(h, (val * j, j))
-        return val
+
+
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        count = 0
+        candidates = [1]
+        prev_ugly = 0
+        while count < n:
+            next_ugly = heapq.heappop(candidates)
+            while next_ugly == prev_ugly:
+                next_ugly = heapq.heappop(candidates)
+
+            count += 1
+            for factor in [2, 3, 5]:
+                heapq.heappush(candidates, next_ugly * factor)
+
+            prev_ugly = next_ugly
+
+        return next_ugly
+
 
 import heapq
+
 a = Solution()
 print(a.nthUglyNumber(20))

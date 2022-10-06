@@ -15,35 +15,34 @@ Consider the following matrix:
 
 Given target = 3, return true.
 """
-class Solution(object):
-    def searchMatrix(self, matrix, target):
-        """
-        :type matrix: List[List[int]]
-        :type target: int
-        :rtype: bool
-        """
-        if matrix is None or matrix == []:
-            return False
-        for row in matrix:
-            if target < row[0]:
-                return False
-            elif target > row[-1]:
-                continue
-            else:
-                left, right = 0, len(row)-1
-                while left < right - 1:
-                    middle = (left + right) // 2
-                    if row[middle] == target:
-                        return True
-                    elif row[middle] > target:
-                        right = middle
-                    else:
-                        left = middle
-                if row[left] == target or row[right] == target:
-                    return True
-                else:
-                    return False
 
-A=[[1,3,5,7],[10,11,16,20],[23,30,34,50]]
-a=Solution()
-print(a.searchMatrix(A,3))
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        m = len(matrix)
+        if not m:
+            return False
+
+        n = len(matrix[0])
+
+        left, right = 0, m * n - 1
+
+        while left <= right:
+            mid = left + (right - left) // 2
+            i, j = divmod(mid, n)
+            mid_val = matrix[i][j]
+
+            if mid_val == target:
+                return True
+            else:
+                if target < mid_val:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+
+        return False
+
+
+A = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]]
+a = Solution()
+print(a.searchMatrix(A, 3))

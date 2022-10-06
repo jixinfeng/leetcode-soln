@@ -48,38 +48,38 @@ Hint:
        return true;
     }
 """
-class Solution(object):
-    def countPrimes(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        isPrime=[True]*max(n,2)
-        isPrime[0], isPrime[1] = False, False
-        x=2
-        while x<n:
-            if isPrime[x]:
-                m=x**2
-                while m<n:
-                    isPrime[m]=False
-                    m+=x
-            x+=1
-        return sum(isPrime)
+
+
+class Solution:
+    def countPrimes(self, n: int) -> int:
+        is_prime = [False, False] + [True] * (n - 2)
+        for i in range(2, int(sqrt(n)) + 1):
+            if is_prime[i]:
+                for j in range(i ** 2, n, i):
+                    is_prime[j] = False
+
+        return sum(is_prime)
+
 
 """
-too slow, time limit exceeded for n=999983
-    def countPrimes(self, n):
-        if n<=2:
+too slow, time limit exceeded for n=499979
+class Solution:
+    def countPrimes(self, n: int) -> int:
+        if n <= 2:
             return 0
-        primes=[2]
-        for i in range(3,n):
-            lim=i**0.5
-            for j in primes:
-                if j>lim:
-                    primes.append(i)
-                    break
-                elif i%j==0:
-                    break
-
+        primes = [2]
+        candidates = list(range(3, n, 2))[::-1]
+        cache = []
+        while candidates or cache:
+            curr_prime = candidates.pop()
+            primes.append(curr_prime)
+            while candidates:
+                c = candidates.pop()
+                if c % curr_prime != 0:
+                    cache.append(c)
+            
+            candidates = cache[::-1]
+            cache = []
+        
         return len(primes)
 """

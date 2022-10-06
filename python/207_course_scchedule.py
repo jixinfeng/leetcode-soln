@@ -29,32 +29,31 @@ Hints:
     
     Topological sort could also be done via BFS.
 """
-class Solution(object):
-    def canFinish(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: bool
-        """
-        inDegs = {i : 0 for i in range(numCourses)}
-        outEdges = {i : [] for i in range(numCourses)}
-        for edge in prerequisites:
-            head, tail = edge[0], edge[1]
-            inDegs[head] += 1
-            outEdges[tail].append(head)
 
-        zeroInDegs = [i for i in range(numCourses) if inDegs[i] == 0]
-        sortCount = 0
-        while len(zeroInDegs) > 0:
-            tail = zeroInDegs.pop()
-            for head in outEdges[tail]:
-                inDegs[head] -= 1
-                if inDegs[head] == 0:
-                    zeroInDegs.append(head)
-            sortCount += 1
-        return sortCount == numCourses
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        in_degrees = [0] * numCourses
+        out_edges = {node: [] for node in range(numCourses)}
+
+        for course, prereq in prerequisites:
+            in_degrees[course] += 1
+            out_edges[prereq].append(course)
+
+        zero_in_degs = [node for node, in_deg in enumerate(in_degrees) if in_deg == 0]
+        count = 0
+        while zero_in_degs:
+            pre_req = zero_in_degs.pop()
+            count += 1
+            for course in out_edges[pre_req]:
+                in_degrees[course] -= 1
+                if in_degrees[course] == 0:
+                    zero_in_degs.append(course)
+
+        return count == numCourses
+
 
 a = Solution()
-print(a.canFinish(2, [[1, 0]]) == True)
-print(a.canFinish(2, [[1, 0], [0, 1]]) == False)
-print(a.canFinish(3, [[0, 1], [0, 2], [1, 2]]) == True)
+print(a.canFinish(2, [[1, 0]]) is True)
+print(a.canFinish(2, [[1, 0], [0, 1]]) is False)
+print(a.canFinish(3, [[0, 1], [0, 2], [1, 2]]) is True)

@@ -13,21 +13,17 @@ Hint:
     If each character occurs even number of times, then it must be a palindrome.
     How about character which occurs odd number of times?
 """
-class Solution(object):
-    def canPermutePalindrome(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        if len(s)<=1:
-            return True
-        cCount={}
+
+
+class Solution:
+    def canPermutePalindrome(self, s: str) -> bool:
+        char_count = {}
         for c in s:
-            cCount[c]=cCount.get(c,0)+1
-        fOdds=0
-        for f in cCount.values():
-            if f%2==1:
-                fOdds+=1
-                if fOdds>1:
-                    return False
-        return True
+            char_count[c] = char_count.get(c, 0) + 1
+
+        odd_count = 0
+        for count in char_count.values():
+            if count % 2:
+                odd_count += 1
+
+        return (len(s) % 2 == 0 and odd_count == 0) or (len(s) % 2 == 1 and odd_count == 1)

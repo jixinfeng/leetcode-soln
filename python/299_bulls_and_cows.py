@@ -30,29 +30,25 @@ Credits:
     Special thanks to @jeantimex for adding this problem and creating
     all test cases.
 """
-class Solution(object):
-    def getHint(self, secret, guess):
-        """
-        :type secret: str
-        :type guess: str
-        :rtype: str
-        """
-        secDigits=[int(i) for i in secret]
-        gesDigits=[int(i) for i in guess]
-        
-        bull=0
-        cow=0
-        for i,j in enumerate(gesDigits):
-            if secDigits[i]==j:
-                bull+=1
-                gesDigits[i]=':'
-                secDigits[i]='.'
-        for i,j in enumerate(gesDigits):
-            if j in secDigits:
-                cow+=1
-                gesDigits[i]=':'
-                secDigits[secDigits.index(j)]='.'
-        return str(bull)+'A'+str(cow)+'B'
+import collections
+
+
+class Solution:
+    def getHint(self, secret: str, guess: str) -> str:
+        correct_locations = set(
+            [i for i in range(len(secret)) if secret[i] == guess[i]])
+        remaining_secret_count = collections.Counter(
+            [secret[i] for i in range(len(secret)) if i not in correct_locations])
+        remaining_guess_count = collections.Counter(
+            [guess[i] for i in range(len(guess)) if i not in correct_locations])
+        num_cows = 0
+        for k, v in remaining_secret_count.items():
+            guess_count = remaining_guess_count.get(k, 0)
+            num_cows += min(v, guess_count)
+
+        num_bulls = len(correct_locations)
+        return f"{num_bulls}A{num_cows}B"
+
 
 """
 faster and much faster version from
